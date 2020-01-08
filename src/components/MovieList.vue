@@ -22,14 +22,32 @@ export default {
     components: {
         MovieItem
     },
-    async mounted() {
-        let images = await fetch("https://api.themoviedb.org/3/configuration?api_key=60e1831dec35a216fdaff508cdf5675c");
-        let paths =  await images.json();
-        // console.log(paths.images);
-        // this.image = paths.images.secure_base_url + paths.images.backdrop_sizes[0] + this.movie.poster_path;
-        this.config = paths.images;
-        console.log(this.config);
-    // this.image = paths.images;
-  }
+    mounted() {
+        if(localStorage.getItem("config") && JSON.stringify(localStorage.getItem("config")) !== JSON.stringify({})) {
+          // console.log("test" + JSON.parse(localStorage.getItem("config")));
+          this.config = JSON.parse(localStorage.getItem("config"));
+        }
+    },
+    watch: {
+      async config() {
+        const res = await fetch("https://api.themoviedb.org/3/configuration?api_key=60e1831dec35a216fdaff508cdf5675c");
+        const config = await res.json();
+        console.log("config: " + config);
+        const parsed = JSON.stringify(config);
+        console.log("parsed: " + parsed);
+        localStorage.setItem("config", parsed);
+        this.config = config;
+      }
+    }
+    
 }
 </script>
+
+<style scoped>
+    .movie-list {
+        display: flex;
+        flex-wrap: wrap;
+        width: 1200px;
+        margin: 0 auto;
+    }
+</style>
