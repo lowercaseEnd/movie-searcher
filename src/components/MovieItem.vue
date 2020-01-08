@@ -1,12 +1,9 @@
 <template>
     <li class="movie-list__item">
-        <h2>{{movie.title}}</h2>
+        <h2 v-on:click="openPage">{{movie.title}}</h2>
         <p>Release date: {{this.date.getFullYear()}}</p>
         <img v-bind:src=image>
         <!-- {{movie}} -->
-        <!-- {{config}} -->
-        <!-- {{config.secure_base_url + config.backdrop_sizes[0] + movie.poster_path}} -->
-        <!-- `${config.secure_base_url}${config.backdrop_sizes[0]}${movie.poster_path}` -->
         <img v-bind:src="require(this.image)"
     </li>
 </template>
@@ -29,11 +26,20 @@ export default {
             date: new Date(this.movie.release_date)
         }
     },
-    mounted() {
-      console.log("1" + JSON.stringify(this.config));
-      // let temp = JSON.parse(this.config);
-      // console.log("temp" + temp);
-      // this.image = 
+    methods: {
+      openPage() {
+        this.$router.push({name: "description page", params: {
+          id: this.movie.id
+        }})
+      }
     }
 }
 </script>
+
+
+<style>
+  .movie-list__item {
+    margin-right: 15px;
+    width: 300px;
+  }
+</style>

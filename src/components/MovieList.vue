@@ -24,7 +24,6 @@ export default {
     },
     mounted() {
         if(localStorage.getItem("config") && JSON.stringify(localStorage.getItem("config")) !== JSON.stringify({})) {
-          // console.log("test" + JSON.parse(localStorage.getItem("config")));
           this.config = JSON.parse(localStorage.getItem("config"));
         }
     },
@@ -32,9 +31,7 @@ export default {
       async config() {
         const res = await fetch("https://api.themoviedb.org/3/configuration?api_key=60e1831dec35a216fdaff508cdf5675c");
         const config = await res.json();
-        console.log("config: " + config);
         const parsed = JSON.stringify(config);
-        console.log("parsed: " + parsed);
         localStorage.setItem("config", parsed);
         this.config = config;
       }
@@ -43,11 +40,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
     .movie-list {
+      list-style: none;
         display: flex;
         flex-wrap: wrap;
-        width: 1200px;
+        width: 1300px;
         margin: 0 auto;
+        padding: 0;
     }
 </style>
