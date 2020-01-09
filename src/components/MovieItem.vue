@@ -1,41 +1,47 @@
 <template>
-    <li class="movie-list__item">
-        <h2 v-on:click="openPage">{{movie.title}}</h2>
-        <p>Release date: {{this.date.getFullYear()}}</p>
-        <img v-bind:src=image>
-        <!-- {{movie}} -->
-        <img v-bind:src="require(this.image)"
-    </li>
+  <li class="movie-list__item">
+    <h2 v-on:click="openPage">{{ movie.title }}</h2>
+    <p>Release date: {{ this.date.getFullYear() }}</p>
+    <img v-bind:src="image">
+    <!-- {{movie}} -->
+    <!-- <img v-bind:src="require(this.image)" > -->
+  </li>
 </template>
 
 <script>
-export default {
+  export default {
     props: {
-        movie: {
-            type: Object,
-            required: true
-        },
-        config: {
-            type: Object,
-            required: true
-        }
+      movie: {
+        type: Object,
+        required: true
+      },
+      config: {
+        type: Object,
+        required: true
+      }
     },
     data() {
-        return {
-            image: this.config.images.secure_base_url + this.config.images.backdrop_sizes[0] + this.movie.poster_path,
-            date: new Date(this.movie.release_date)
-        }
+      return {
+        image:
+          this.config.images.secure_base_url +
+          this.config.images.backdrop_sizes[0] +
+          this.movie.poster_path,
+        date: new Date(this.movie.release_date)
+      };
     },
     methods: {
       openPage() {
-        this.$router.push({name: "description page", params: {
-          id: this.movie.id
-        }})
+        console.log(this);
+        this.$router.push({
+          name: "description page",
+          params: {
+            id: this.movie.id
+          }
+        });
       }
     }
-}
+  };
 </script>
-
 
 <style>
   .movie-list__item {

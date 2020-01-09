@@ -11,25 +11,26 @@
         </p>
         <p class="movie-full__info"><b>Budget</b>: {{ movie.budget }}</p>
         <p class="movie-full__info">{{ movie.overview }}</p>
-        {{ this.releaseDate.getFullYear() }}
-        {{ this.releaseDate.getMonth() }}
+        <p class="movie-full__info"><b>Release date</b>: {{ getDate() }}</p>
         <p class="movie-full__info"><b>Status</b>: {{ movie.status }}</p>
         <p class="movie-full__info">
-          IMDB link: <a v-bind:href="url">click</a>
+          <b>IMDB link</b>: <a v-bind:href="url">{{ url }}</a>
         </p>
         <!-- {{ movie }} -->
       </div>
 
       <img class="movie-poster" v-bind:src="image" />
     </div>
-    <Similar v-bind:similar="getSimilarMovies" />
+    <h2>Similar Movies:</h2>
+    <SimilarList v-bind:similar="getSimilarMovies" />
+    <router-view />
     <!-- {{this.$route.params.id}} -->
   </section>
 </template>
 
 <script>
   import { mapActions, mapGetters } from "vuex";
-  import Similar from "@/components/Similar";
+  import SimilarList from "@/components/SimilarList";
 
   export default {
     data() {
@@ -39,9 +40,31 @@
       };
     },
     components: {
-      Similar
+      SimilarList
     },
-    methods: mapActions(["fetchSimilarMovies"]),
+    methods: {
+      ...mapActions(["fetchSimilarMovies"]),
+      getDate() {
+        const monthsName = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"
+        ];
+        let date = this.releaseDate.getDay() + " ";
+        date += monthsName[this.releaseDate.getMonth()] + " ";
+        date += this.releaseDate.getFullYear();
+        return date;
+      }
+    },
     async mounted() {
       const res = await fetch(
         `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=60e1831dec35a216fdaff508cdf5675c&language=en-US`
