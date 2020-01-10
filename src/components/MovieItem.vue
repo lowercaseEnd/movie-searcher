@@ -15,17 +15,9 @@
         type: Object,
         required: true
       },
-      config: {
-        type: Object,
-        required: true
-      }
     },
     data() {
       return {
-        image:
-          this.config.images.secure_base_url +
-          this.config.images.backdrop_sizes[0] +
-          this.movie.poster_path,
         date: new Date(this.movie.release_date)
       };
     },
@@ -37,6 +29,16 @@
             id: this.movie.id
           }
         });
+      }
+    },
+    computed: {
+      config() {
+        return JSON.parse(localStorage.getItem("config"));
+      },
+      image() {
+        return this.config.images.secure_base_url +
+          this.config.images.backdrop_sizes[0] +
+          this.movie.poster_path;
       }
     }
   };

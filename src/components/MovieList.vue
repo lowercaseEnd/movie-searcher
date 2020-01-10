@@ -4,7 +4,6 @@
             v-for="movie in movies"
             v-bind:key="movie.id"
             v-bind:movie="movie"
-            v-bind:config="config"
         />
     </ul>
 </template>
@@ -14,18 +13,8 @@ import MovieItem from "@/components/MovieItem";
 
 export default {
     props: ["movies"],
-    data() {
-        return {
-            config: {}
-        }
-    },
     components: {
         MovieItem
-    },
-    mounted() {
-        if(localStorage.getItem("config") && JSON.stringify(localStorage.getItem("config")) !== JSON.stringify({})) {
-          this.config = JSON.parse(localStorage.getItem("config"));
-        }
     },
     watch: {
       async config() {
@@ -33,7 +22,6 @@ export default {
         const config = await res.json();
         const parsed = JSON.stringify(config);
         localStorage.setItem("config", parsed);
-        this.config = config;
       }
     }
     
