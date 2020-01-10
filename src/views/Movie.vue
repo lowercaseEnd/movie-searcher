@@ -23,10 +23,13 @@
 
       <img class="movie-poster" v-bind:src="image" />
     </div>
-    <h2>Similar movies:</h2>
-    <SimilarList v-bind:moviesList="getSimilarMovies" />
-    <h2>Recommended movies:</h2>
-    <SimilarList v-bind:moviesList="getRecommendedMovies" />
+    <div v-if="getRecommendedMovies.length > 0">
+      <h2>Similar movies:</h2>
+      <SimilarList v-bind:moviesList="getSimilarMovies" />
+      <h2>Recommended movies:</h2>
+      <SimilarList v-bind:moviesList="getRecommendedMovies" />
+    </div>
+
     <!-- <router-view /> -->
   </section>
 </template>
@@ -43,7 +46,7 @@
       };
     },
     components: {
-      SimilarList,
+      SimilarList
     },
     methods: {
       ...mapActions(["fetchSimilarMovies"]),
@@ -76,8 +79,16 @@
       this.movie = movie;
       const imdbLink = "https://www.imdb.com/title/";
       this.url = imdbLink + this.movie.imdb_id;
-      this.fetchSimilarMovies({id: this.$route.params.id, key: "similar"});
-      this.fetchSimilarMovies({id: this.$route.params.id, key: "recommendations"});
+      if (this.movie.status === "released") {
+        this.fetchSimilarMovies({ 
+          id: this.$route.params.id, 
+          key: "similar" 
+        });
+        this.fetchSimilarMovies({
+          id: this.$route.params.id,
+          key: "recommendations"
+        });
+      }
     },
     computed: {
       releaseDate() {
