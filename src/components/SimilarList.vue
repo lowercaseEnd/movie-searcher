@@ -1,7 +1,7 @@
 <template>
   <ul class="similar-list">
     <SimilarMovie
-      v-for="movie in similar.slice(0, 4)"
+      v-for="movie in moviesList.slice(0, 4)"
       v-bind:key="movie.id"
       v-bind:movie="movie"
     />
@@ -12,7 +12,7 @@
   import SimilarMovie from "@/components/SimilarMovie";
 
   export default {
-    props: ["similar"],
+    props: ["moviesList"],
     components: {
       SimilarMovie
     }

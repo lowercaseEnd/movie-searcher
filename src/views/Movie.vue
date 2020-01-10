@@ -23,9 +23,10 @@
 
       <img class="movie-poster" v-bind:src="image" />
     </div>
-    <h2>Similar Movies:</h2>
-    <SimilarList v-bind:similar="getSimilarMovies" />
-    <RecommendedMovies v-bind:recommended="getRecommendedMovies" />
+    <h2>Similar movies:</h2>
+    <SimilarList v-bind:moviesList="getSimilarMovies" />
+    <h2>Recommended movies:</h2>
+    <SimilarList v-bind:moviesList="getRecommendedMovies" />
     <!-- <router-view /> -->
   </section>
 </template>
@@ -33,7 +34,6 @@
 <script>
   import { mapActions, mapGetters } from "vuex";
   import SimilarList from "@/components/SimilarList";
-  import RecommendedMovies from "@/components/RecommendedMovies";
 
   export default {
     data() {
@@ -44,7 +44,6 @@
     },
     components: {
       SimilarList,
-      RecommendedMovies
     },
     methods: {
       ...mapActions(["fetchSimilarMovies"]),
