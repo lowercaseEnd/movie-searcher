@@ -9,16 +9,18 @@
             >{{ genre.name }}
           </span>
         </p>
+        <p class="movie-full__info"><b>Release date</b>: {{ getDate() }}</p>
+        <p class="movie-full__info"><b>Runtime</b>: {{ movie.runtime }} min</p>
         <p class="movie-full__info">
           <b>Budget</b>: {{ movie.budget }} <span class="dollar-sign">$</span>
         </p>
         <p class="movie-full__info">{{ movie.overview }}</p>
-        <p class="movie-full__info"><b>Release date</b>: {{ getDate() }}</p>
         <p class="movie-full__info"><b>Status</b>: {{ movie.status }}</p>
         <p class="movie-full__info">
           <b>IMDB link</b>: <a v-bind:href="url">{{ url }}</a>
         </p>
-        {{ movie }}
+        <Cast v-bind:cast="getCast" />
+        <!-- {{ movie }} -->
       </div>
 
       <img class="movie-poster" v-bind:src="image" />
@@ -37,6 +39,7 @@
 <script>
   import { mapActions, mapGetters } from "vuex";
   import SimilarList from "@/components/SimilarList";
+  import Cast from "@/components/Cast";
 
   export default {
     data() {
@@ -46,10 +49,11 @@
       };
     },
     components: {
-      SimilarList
+      SimilarList,
+      Cast
     },
     methods: {
-      ...mapActions(["fetchSimilarMovies"]),
+      ...mapActions(["fetchSimilarMovies", "fetchCast"]),
       getDate() {
         const monthsName = [
           "January",
@@ -79,7 +83,8 @@
       this.movie = movie;
       const imdbLink = "https://www.imdb.com/title/";
       this.url = imdbLink + this.movie.imdb_id;
-      if (this.movie.status === "released") {
+      this.fetchCast(this.$route.params.id);
+      if (this.movie.status === "Released") {
         this.fetchSimilarMovies({ 
           id: this.$route.params.id, 
           key: "similar" 
@@ -102,7 +107,7 @@
           this.movie.poster_path
         );
       },
-      ...mapGetters(["getSimilarMovies", "getRecommendedMovies"])
+      ...mapGetters(["getSimilarMovies", "getRecommendedMovies", "getCast"])
     }
   };
 </script>

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import similarMovies from "./similarMovies";
+import cast from "./cast";
 
 Vue.use(Vuex);
 const API_KEY = "60e1831dec35a216fdaff508cdf5675c"
@@ -29,5 +30,6 @@ export default new Vuex.Store({
     },
     modules: {
         similarMovies,
+        cast
     }
 })

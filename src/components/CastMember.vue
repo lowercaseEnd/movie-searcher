@@ -1,25 +1,25 @@
 <template>
-  <li v-on:click="openPage">
-    <!-- {{ movie }} -->
+  <li v-on:click="show">
     <img v-bind:src="image" />
-    <h3>{{ movie.title }}</h3>
+    <h2>{{ castMember.name }}</h2>
   </li>
 </template>
 
 <script>
   export default {
     props: {
-      movie: {
+      castMember: {
         type: Object
       }
     },
+    data() {
+      return {
+        profilePic: ""
+      }
+    },
     methods: {
-      openPage() {
-        this.$router.push({
-          name: "description page",
-          params: { id: this.movie.id }
-        });
-        this.$router.go(0);
+      show() {
+        console.log(this.image);
       }
     },
     computed: {
@@ -28,7 +28,7 @@
         return (
           config.images.secure_base_url +
           config.images.backdrop_sizes[0] +
-          this.movie.poster_path
+          this.castMember.profile_path
         );
       }
     }
