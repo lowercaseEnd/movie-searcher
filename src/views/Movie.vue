@@ -9,28 +9,31 @@
             >{{ genre.name }}
           </span>
         </p>
-        <p class="movie-full__info"><b>Budget</b>: {{ movie.budget }}</p>
+        <p class="movie-full__info">
+          <b>Budget</b>: {{ movie.budget }} <span class="dollar-sign">$</span>
+        </p>
         <p class="movie-full__info">{{ movie.overview }}</p>
         <p class="movie-full__info"><b>Release date</b>: {{ getDate() }}</p>
         <p class="movie-full__info"><b>Status</b>: {{ movie.status }}</p>
         <p class="movie-full__info">
           <b>IMDB link</b>: <a v-bind:href="url">{{ url }}</a>
         </p>
-        <!-- {{ movie }} -->
+        {{ movie }}
       </div>
 
       <img class="movie-poster" v-bind:src="image" />
     </div>
     <h2>Similar Movies:</h2>
     <SimilarList v-bind:similar="getSimilarMovies" />
-    <router-view />
-    <!-- {{this.$route.params.id}} -->
+    <RecommendedMovies v-bind:recommended="getRecommendedMovies" />
+    <!-- <router-view /> -->
   </section>
 </template>
 
 <script>
   import { mapActions, mapGetters } from "vuex";
   import SimilarList from "@/components/SimilarList";
+  import RecommendedMovies from "@/components/RecommendedMovies";
 
   export default {
     data() {
@@ -40,7 +43,8 @@
       };
     },
     components: {
-      SimilarList
+      SimilarList,
+      RecommendedMovies
     },
     methods: {
       ...mapActions(["fetchSimilarMovies"]),
@@ -73,7 +77,8 @@
       this.movie = movie;
       const imdbLink = "https://www.imdb.com/title/";
       this.url = imdbLink + this.movie.imdb_id;
-      this.fetchSimilarMovies(this.$route.params.id);
+      this.fetchSimilarMovies({id: this.$route.params.id, key: "similar"});
+      this.fetchSimilarMovies({id: this.$route.params.id, key: "recommendations"});
     },
     computed: {
       releaseDate() {
@@ -87,7 +92,7 @@
           this.movie.poster_path
         );
       },
-      ...mapGetters(["getSimilarMovies"])
+      ...mapGetters(["getSimilarMovies", "getRecommendedMovies"])
     }
   };
 </script>

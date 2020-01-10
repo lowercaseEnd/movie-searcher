@@ -1,6 +1,6 @@
 <template>
-  <li class="movie-list__item">
-    <h2 v-on:click="openPage">{{ movie.title }}</h2>
+  <li class="movie-list__item" v-on:click="openPage">
+    <h2 >{{ movie.title }}</h2>
     <p>Release date: {{ this.date.getFullYear() }}</p>
     <img v-bind:src="image">
     <!-- {{movie}} -->
@@ -31,7 +31,6 @@
     },
     methods: {
       openPage() {
-        console.log(this);
         this.$router.push({
           name: "description page",
           params: {
