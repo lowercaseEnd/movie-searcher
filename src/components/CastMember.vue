@@ -1,5 +1,5 @@
 <template>
-  <li v-on:click="show">
+  <li>
     <img v-bind:src="image" />
     <h2>{{ castMember.name }}</h2>
   </li>
@@ -15,11 +15,6 @@
     data() {
       return {
         profilePic: ""
-      }
-    },
-    methods: {
-      show() {
-        console.log(this.image);
       }
     },
     computed: {

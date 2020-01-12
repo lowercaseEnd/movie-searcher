@@ -7,7 +7,6 @@ export default {
   },
   actions: {
     async fetchSimilarMovies(context, {id, key}) {
-      console.log(`Key: ${key} for id: ${id}`);
       const response = await fetch(
         `https://api.themoviedb.org/3/movie/${id}/${key}?api_key=${API_KEY}&language=en-US&page=1`
       );
