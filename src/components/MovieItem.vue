@@ -1,8 +1,8 @@
 <template>
   <li class="movie-list__item" v-on:click="openPage">
-    <h2 >{{ movie.title }}</h2>
-    <p>Release date: {{ this.date.getFullYear() }}</p>
     <img v-bind:src="image">
+    <p>Release date: {{ this.date.getFullYear() }}</p>
+    <h2 >{{ movie.title }}</h2>
     <!-- {{movie}} -->
     <!-- <img v-bind:src="require(this.image)" > -->
   </li>

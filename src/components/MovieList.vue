@@ -15,14 +15,6 @@ export default {
     props: ["movies"],
     components: {
         MovieItem
-    },
-    watch: {
-      async config() {
-        const res = await fetch("https://api.themoviedb.org/3/configuration?api_key=60e1831dec35a216fdaff508cdf5675c");
-        const config = await res.json();
-        const parsed = JSON.stringify(config);
-        localStorage.setItem("config", parsed);
-      }
     }
     
 }
