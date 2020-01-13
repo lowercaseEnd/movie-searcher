@@ -17,7 +17,7 @@ export default {
 
       context.commit("writeMovies", movies);
     },
-    searchFor(context, query) {
+    setQuery(context, query) {
       context.commit("saveQuery", query);
     },
     setPage(context, page) {

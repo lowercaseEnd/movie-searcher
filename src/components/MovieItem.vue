@@ -29,13 +29,16 @@
             id: this.movie.id
           }
         });
-      }
+      },
     },
     computed: {
       config() {
         return JSON.parse(localStorage.getItem("config"));
       },
       image() {
+        if (this.movie.poster_path === null) {
+          return 'https://www.turfgrasssod.org/wp-content/themes/linstar/assets/images/default.jpg';
+        }
         return this.config.images.secure_base_url +
           this.config.images.backdrop_sizes[0] +
           this.movie.poster_path;

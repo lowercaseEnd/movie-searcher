@@ -14,9 +14,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["fetchMovieList", "searchFor"]),
+    ...mapActions(["fetchMovieList", "setQuery"]),
     search(query) {
-      this.searchFor(query);
+      this.setQuery(query);
       this.fetchMovieList();
     }
   }
