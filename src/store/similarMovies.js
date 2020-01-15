@@ -1,5 +1,5 @@
 const API_KEY = "60e1831dec35a216fdaff508cdf5675c";
-
+//module for getting recommendations and similar movies
 export default {
   state: {
     similarMovies: [],
@@ -11,7 +11,10 @@ export default {
         `https://api.themoviedb.org/3/movie/${id}/${key}?api_key=${API_KEY}&language=en-US&page=1`
       );
       const movies = await response.json();
-
+      //just to prevent errors
+      if(!key) {
+        key = "similar";
+      }
       let fun = key === "similar" ? "writeSimilarMovies" : "writeRecommendedMovies"
 
       context.commit(fun, movies.results);

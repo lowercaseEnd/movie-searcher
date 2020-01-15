@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/" v-on:click="firstPage">Home</router-link> |
+      <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
@@ -10,17 +10,9 @@
 
 <script>
 //60e1831dec35a216fdaff508cdf5675c - api code
-import {mapActions} from "vuex";
 
 export default {
-  methods: {
-    ...mapActions(["setPage", "fetchMovieList", "setQuery"]),
-    firstPage() {
-      this.setPage(1);
-      this.setQuery("");
-      this.fetchMovieList();
-    }
-  }
+
 }
 </script>
 

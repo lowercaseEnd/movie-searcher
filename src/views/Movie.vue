@@ -25,11 +25,11 @@
 
       <img class="movie-poster" v-bind:src="image" />
     </div>
-    <div v-if="getRecommendedMovies.length > 0">
+    <div v-if="recommendations.length > 0">
       <h2>Similar movies:</h2>
-      <SimilarList v-bind:moviesList="getSimilarMovies" />
+      <SimilarList v-bind:moviesList="similar" />
       <h2>Recommended movies:</h2>
-      <SimilarList v-bind:moviesList="getRecommendedMovies" />
+      <SimilarList v-bind:moviesList="recommendations" />
     </div>
 
     <!-- <router-view /> -->
@@ -44,8 +44,8 @@
   export default {
     data() {
       return {
-        movie: {},
-        url: ""
+        // movie: {},
+        // url: ""
       };
     },
     components: {
@@ -53,7 +53,8 @@
       Cast
     },
     methods: {
-      ...mapActions(["fetchSimilarMovies", "fetchCast"]),
+      ...mapActions(["fetchSimilarMovies", "fetchCast", "fetchMovieInfo"]),
+      ...mapGetters(["getMovie", "getSimilarMovies", "getRecommendedMovies"]),
       getDate() {
         const monthsName = [
           "January",
@@ -75,25 +76,9 @@
         return date;
       }
     },
-    async mounted() {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=60e1831dec35a216fdaff508cdf5675c&language=en-US`
-      );
-      const movie = await res.json();
-      this.movie = movie;
-      const imdbLink = "https://www.imdb.com/title/";
-      this.url = imdbLink + this.movie.imdb_id;
+    mounted() {
+      this.fetchMovieInfo(this.$route.params.id);
       this.fetchCast(this.$route.params.id);
-      if (this.movie.status === "Released") {
-        this.fetchSimilarMovies({ 
-          id: this.$route.params.id, 
-          key: "similar" 
-        });
-        this.fetchSimilarMovies({
-          id: this.$route.params.id,
-          key: "recommendations"
-        });
-      }
     },
     computed: {
       releaseDate() {
@@ -107,7 +92,32 @@
           this.movie.poster_path
         );
       },
-      ...mapGetters(["getSimilarMovies", "getRecommendedMovies", "getCast"])
+      ...mapGetters(["getCast"]),
+      movie() {
+        return this.getMovie();
+      },
+      url() {
+        const imdbLink = "https://www.imdb.com/title/";
+        return imdbLink + this.movie.imdb_id;
+      },
+      recommendations() {
+        if (this.movie.status === "Released") {
+          this.fetchSimilarMovies({
+            id: this.$route.params.id,
+            key: "similar"
+          });
+        }
+        return this.getSimilarMovies();
+      },
+      similar() {
+        if (this.movie.status === "Released") {
+          this.fetchSimilarMovies({
+            id: this.$route.params.id,
+            key: "recommendations"
+          });
+        }
+        return this.getRecommendedMovies();
+      }
     }
   };
 </script>

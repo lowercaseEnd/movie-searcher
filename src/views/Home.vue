@@ -26,6 +26,7 @@ export default {
   computed: mapGetters(["getMovies"]),
   mounted() {
     this.fetchMovieList();
-  }
+  },
+
 }
 </script>

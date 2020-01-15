@@ -1,5 +1,5 @@
 const API_KEY = "60e1831dec35a216fdaff508cdf5675c"
-
+//module for getting search results from tmdb
 export default {
   state: {
     movies: {},
@@ -8,6 +8,7 @@ export default {
   },
   actions: {
     async fetchMovieList(context) {
+      //if query is empty set to default for now
       let query = context.getters.getQuery || "psycho";
       let page = context.getters.getPage;
       const response = await fetch(
@@ -17,9 +18,11 @@ export default {
 
       context.commit("writeMovies", movies);
     },
+    //save query so pagination is possible
     setQuery(context, query) {
       context.commit("saveQuery", query);
     },
+    //change page
     setPage(context, page) {
       context.commit("savePage", page);
     }
