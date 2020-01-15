@@ -7,7 +7,7 @@
 </template>
 
 <script>
-
+  import {mapActions} from "vuex";
   export default {
     props: {
       movie: {
@@ -15,12 +15,14 @@
       }
     },
     methods: {
+      ...mapActions(["fetchMovieInfo"]),
       openPage() {
+        console.log("Open page: " + this.movie.id);
         this.$router.push({
           name: "description page",
           params: { id: this.movie.id }
         });
-        this.$router.go(0);
+        this.fetchMovieInfo(this.$route.params.id);
       }
     },
     computed: {
