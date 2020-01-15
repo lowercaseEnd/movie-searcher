@@ -8,11 +8,20 @@ export default {
   },
   actions: {
     async fetchMovieList(context) {
-      //if query is empty set to default for now
-      let query = context.getters.getQuery || "psycho";
+      //searching for popular movies or not
+      let searchString = "";
       let page = context.getters.getPage;
+      
+      if(context.getters.getQuery) {
+        searchString = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`;
+      } else {
+        searchString = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`;
+      }
+      //if query is empty set to default for now
+      // let query = context.getters.getQuery || "psycho";
+      
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`
+        searchString
       );
       const movies = await response.json();
 

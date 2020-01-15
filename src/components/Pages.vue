@@ -22,7 +22,7 @@ export default {
     }
   },
   computed: {
-    pages: function() {
+    pages() {
        let current = this.getPages().page,
         last = this.getPages().total_pages,
         delta = 2,

@@ -19,7 +19,7 @@
         <p class="movie-full__info">
           <b>IMDB link</b>: <a v-bind:href="url">{{ url }}</a>
         </p>
-        <Cast v-bind:cast="getCast" />
+        <Cast v-bind:cast="cast" />
         <!-- {{ movie }} -->
       </div>
 
@@ -54,7 +54,7 @@
     },
     methods: {
       ...mapActions(["fetchSimilarMovies", "fetchCast", "fetchMovieInfo"]),
-      ...mapGetters(["getMovie", "getSimilarMovies", "getRecommendedMovies"]),
+      ...mapGetters(["getMovie", "getSimilarMovies", "getRecommendedMovies", "getCast"]),
       getDate() {
         const monthsName = [
           "January",
@@ -92,7 +92,6 @@
           this.movie.poster_path
         );
       },
-      ...mapGetters(["getCast"]),
       movie() {
         return this.getMovie();
       },
@@ -117,6 +116,10 @@
           });
         }
         return this.getRecommendedMovies();
+      },
+      cast() {
+        this.fetchCast(this.$route.params.id);
+        return this.getCast();
       }
     }
   };

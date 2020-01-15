@@ -17,7 +17,6 @@
     methods: {
       ...mapActions(["fetchMovieInfo"]),
       openPage() {
-        console.log("Open page: " + this.movie.id);
         this.$router.push({
           name: "description page",
           params: { id: this.movie.id }
