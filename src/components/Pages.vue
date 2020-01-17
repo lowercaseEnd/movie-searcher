@@ -1,7 +1,9 @@
 <template>
-  <ul>
-    <li v-for="page in pages" v-bind:key="page">
-      <button type="button" v-on:click="search(page)" v-bind:disabled="isCurrentPage(page)">{{page}}</button>
+  <ul class="pages-list">
+    <li class="pages-list__item"
+     v-for="page in pages" v-bind:key="page">
+      <button type="button" class="pages-list__button"
+      v-on:click="search(page)" v-bind:disabled="isCurrentPage(page)">{{page}}</button>
     </li>
   </ul>
 </template>
@@ -16,6 +18,7 @@ export default {
     search(page) {
       this.setPage(page);
       this.fetchMovieList();
+      window.scrollTo(0, 0);
     },
     isCurrentPage(page) {
       return this.getPages().page === page;
@@ -59,5 +62,18 @@ export default {
 </script>
 
 <style>
-
+  .pages-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 500px;
+    margin: 0 auto;
+  }
+  .pages-list__item {
+    margin-right: 20px;
+  }
+  .pages-list__button {
+    border: none;
+    background-color: #fff;
+  }
 </style>
