@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
   export default {
     props: {
       movie: {
@@ -22,6 +24,7 @@
       };
     },
     methods: {
+      ...mapGetters(["getConfig"]),
       openPage() {
         this.$router.push({
           name: "description page",

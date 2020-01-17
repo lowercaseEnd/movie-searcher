@@ -4,8 +4,6 @@ import similarMovies from "./similarMovies";
 import cast from "./cast";
 import search from "./search";
 import movieInfo from "./movieInfo";
-import popularMovies from "./popularMovies";
-// import pages from "./pages";
 
 Vue.use(Vuex);
 
@@ -16,7 +14,5 @@ export default new Vuex.Store({
         cast,
         search,
         movieInfo,
-        popularMovies
-        // pages
     }
 })

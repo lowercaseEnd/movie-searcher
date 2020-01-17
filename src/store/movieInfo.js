@@ -12,7 +12,7 @@ export default {
   actions: {
     async fetchMovieInfo(context, id) {
       const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=60e1831dec35a216fdaff508cdf5675c&language=en-US`
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
       );
       const movie = await res.json();
 
