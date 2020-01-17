@@ -1,6 +1,6 @@
 <template>
   <li class="movie-list__item" v-on:click="openPage">
-    <img v-bind:src="image">
+    <img class="movie-list__poster" v-bind:src="image">
     <p>Release date: {{ this.date.getFullYear() }}</p>
     <h2 >{{ movie.title }}</h2>
     <!-- {{movie}} -->
@@ -49,7 +49,11 @@
 
 <style>
   .movie-list__item {
-    margin-right: 15px;
+    /* margin-right: 15px; */
+    /* width: 300px; */
+  }
+  .movie-list__poster {
     width: 300px;
+    height: 400px;
   }
 </style>

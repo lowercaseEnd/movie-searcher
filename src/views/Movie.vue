@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from "vuex";
+  import { mapActions, mapGetters, mapState } from "vuex";
   import SimilarList from "@/components/SimilarList";
   import Cast from "@/components/Cast";
 
