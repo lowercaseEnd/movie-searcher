@@ -15,20 +15,18 @@
       }
     },
     methods: {
-      ...mapActions(["fetchMovieInfo"]),
+      ...mapActions(["fetchMovieInfo", "fetchCast"]),
       ...mapGetters(["getConfig"]),
       openPage() {
         this.$router.push({
           name: "description page",
           params: { id: this.movie.id }
         });
-        this.fetchMovieInfo(this.$route.params.id);
         window.scrollTo(0, 0);
       }
     },
     computed: {
       image() {
-        // let config = JSON.parse(localStorage.getItem("config"));
         let config = this.getConfig();
         return (
           config.secure_base_url +

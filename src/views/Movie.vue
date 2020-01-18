@@ -44,8 +44,6 @@
   export default {
     data() {
       return {
-        // movie: {},
-        // url: ""
       };
     },
     components: {
@@ -54,7 +52,13 @@
     },
     methods: {
       ...mapActions(["fetchSimilarMovies", "fetchCast", "fetchMovieInfo"]),
-      ...mapGetters(["getMovie", "getSimilarMovies", "getRecommendedMovies", "getCast", "getConfig"]),
+      ...mapGetters([
+        "getMovie",
+        "getSimilarMovies",
+        "getRecommendedMovies",
+        "getCast",
+        "getConfig"
+      ]),
       getDate() {
         const monthsName = [
           "January",
@@ -76,16 +80,25 @@
         return date;
       }
     },
-    mounted() {
-      this.fetchMovieInfo(this.$route.params.id);
-      this.fetchCast(this.$route.params.id);
+    async mounted() {
+      await this.fetchMovieInfo(this.$route.params.id);
+      await this.fetchCast(this.$route.params.id);
+      if (this.movie.status === "Released") {
+        await this.fetchSimilarMovies({
+          id: this.$route.params.id,
+          key: "similar"
+        });
+        await this.fetchSimilarMovies({
+          id: this.$route.params.id,
+          key: "recommendations"
+        });
+      }
     },
     computed: {
       releaseDate() {
         return new Date(this.movie.release_date);
       },
       image() {
-        // let config = JSON.parse(localStorage.getItem("config"));
         let config = this.getConfig();
         return (
           config.secure_base_url +
@@ -101,26 +114,27 @@
         return imdbLink + this.movie.imdb_id;
       },
       recommendations() {
-        if (this.movie.status === "Released") {
-          this.fetchSimilarMovies({
-            id: this.$route.params.id,
-            key: "similar"
-          });
-        }
         return this.getSimilarMovies();
       },
       similar() {
-        if (this.movie.status === "Released") {
-          this.fetchSimilarMovies({
-            id: this.$route.params.id,
-            key: "recommendations"
-          });
-        }
         return this.getRecommendedMovies();
       },
       cast() {
-        this.fetchCast(this.$route.params.id);
         return this.getCast();
+      }
+    },
+    watch: {
+      $route(to, from) {
+        this.fetchMovieInfo(this.$route.params.id);
+        this.fetchCast(this.$route.params.id);
+        this.fetchSimilarMovies({
+          id: this.$route.params.id,
+          key: "similar"
+        });
+        this.fetchSimilarMovies({
+          id: this.$route.params.id,
+          key: "recommendations"
+        });
       }
     }
   };

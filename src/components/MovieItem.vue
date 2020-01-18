@@ -36,7 +36,6 @@ import {mapGetters} from "vuex";
     },
     computed: {
       config() {
-        // return JSON.parse(localStorage.getItem("config"));
         return this.getConfig();
       },
       image() {

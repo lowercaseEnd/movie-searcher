@@ -22,11 +22,6 @@
 <style>
   .movie-list {
     list-style: none;
-    /* display: flex;
-        flex-wrap: wrap;
-        width: 1300px;
-        margin: 0 auto;
-        padding: 0; */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   }
