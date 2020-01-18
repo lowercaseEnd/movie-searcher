@@ -54,7 +54,7 @@
     },
     methods: {
       ...mapActions(["fetchSimilarMovies", "fetchCast", "fetchMovieInfo"]),
-      ...mapGetters(["getMovie", "getSimilarMovies", "getRecommendedMovies", "getCast"]),
+      ...mapGetters(["getMovie", "getSimilarMovies", "getRecommendedMovies", "getCast", "getConfig"]),
       getDate() {
         const monthsName = [
           "January",
@@ -85,10 +85,11 @@
         return new Date(this.movie.release_date);
       },
       image() {
-        let config = JSON.parse(localStorage.getItem("config"));
+        // let config = JSON.parse(localStorage.getItem("config"));
+        let config = this.getConfig();
         return (
-          config.images.secure_base_url +
-          config.images.backdrop_sizes[0] +
+          config.secure_base_url +
+          config.backdrop_sizes[0] +
           this.movie.poster_path
         );
       },

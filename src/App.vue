@@ -30,15 +30,14 @@
     },
     async created() {
       //download config if user doenst have one
-      if(!localStorage.getItem("config") || localStorage.getItem("config") === JSON.stringify({})) {
-        const API_KEY = "60e1831dec35a216fdaff508cdf5675c";
-        let url = `https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`;
-        let res = await fetch(url);
+        // const API_KEY = "60e1831dec35a216fdaff508cdf5675c";
+        // let url = `https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`;
+        // let res = await fetch(url);
 
-        let config = await res.json();
-        localStorage.setItem("config", JSON.stringify(config));
-      }
-        this.dataReady = true;
+        // let config = await res.json();
+        // localStorage.setItem("config", JSON.stringify(config));
+      await this.fetchConfig();
+      this.dataReady = true;
     }
   }
 </script>

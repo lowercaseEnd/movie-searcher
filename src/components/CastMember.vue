@@ -6,6 +6,8 @@
 </template>
 
 <script>
+  import {mapState, mapGetters} from "vuex";
+
   export default {
     props: {
       castMember: {
@@ -17,12 +19,16 @@
         profilePic: ""
       }
     },
+    methods: {
+      ...mapGetters(["getConfig"])
+    },
     computed: {
       image() {
-        let config = JSON.parse(localStorage.getItem("config"));
+        // let config = JSON.parse(localStorage.getItem("config"));
+        let config = this.getConfig();
         return (
-          config.images.secure_base_url +
-          config.images.backdrop_sizes[0] +
+          config.secure_base_url +
+          config.backdrop_sizes[0] +
           this.castMember.profile_path
         );
       }

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import {mapActions} from "vuex";
+  import {mapActions, mapGetters} from "vuex";
   export default {
     props: {
       movie: {
@@ -16,20 +16,23 @@
     },
     methods: {
       ...mapActions(["fetchMovieInfo"]),
+      ...mapGetters(["getConfig"]),
       openPage() {
         this.$router.push({
           name: "description page",
           params: { id: this.movie.id }
         });
         this.fetchMovieInfo(this.$route.params.id);
+        window.scrollTo(0, 0);
       }
     },
     computed: {
       image() {
-        let config = JSON.parse(localStorage.getItem("config"));
+        // let config = JSON.parse(localStorage.getItem("config"));
+        let config = this.getConfig();
         return (
-          config.images.secure_base_url +
-          config.images.backdrop_sizes[0] +
+          config.secure_base_url +
+          config.backdrop_sizes[0] +
           this.movie.poster_path
         );
       }

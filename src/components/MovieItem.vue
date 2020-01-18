@@ -36,14 +36,15 @@ import {mapGetters} from "vuex";
     },
     computed: {
       config() {
-        return JSON.parse(localStorage.getItem("config"));
+        // return JSON.parse(localStorage.getItem("config"));
+        return this.getConfig();
       },
       image() {
         if (this.movie.poster_path === null) {
           return 'https://www.turfgrasssod.org/wp-content/themes/linstar/assets/images/default.jpg';
         }
-        return this.config.images.secure_base_url +
-          this.config.images.backdrop_sizes[0] +
+        return this.config.secure_base_url +
+          this.config.backdrop_sizes[0] +
           this.movie.poster_path;
       }
     }
