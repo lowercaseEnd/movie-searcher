@@ -1,23 +1,33 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/" v-on:click.native="setFirstPage">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="header-container">
+      <nav class="nav-bar" id="nav">
+        <router-link to="/" v-on:click.native="setFirstPage">
+        <!-- <img class="logo" alt="TMDB logo" src="@/assets/tmdb-logo.png" -->
+        <!-- /> -->
+        TMDb app
+        </router-link>
+      </nav>
+      <Search class="search-bar" />
     </div>
+
     <router-view v-if="dataReady" />
   </div>
 </template>
 
 <script>
   //60e1831dec35a216fdaff508cdf5675c - api code
-  import {mapActions} from "vuex";
-
+  import { mapActions } from "vuex";
+  import Search from "@/components/Search";
 
   export default {
     data() {
       return {
         dataReady: false
-      }
+      };
+    },
+    components: {
+      Search
     },
     methods: {
       ...mapActions(["setPage", "setQuery", "fetchMovieList", "fetchConfig"]),
@@ -33,7 +43,7 @@
       await this.fetchConfig();
       this.dataReady = true;
     }
-  }
+  };
 </script>
 
 <style>
@@ -45,7 +55,7 @@
     color: #2c3e50;
   }
 
-  #nav {
+  .nav-bar{
     padding: 30px;
   }
 
@@ -56,5 +66,36 @@
 
   #nav a.router-link-exact-active {
     color: #42b983;
+  }
+  .logo {
+    display: block;
+    width: 200px;
+    height: 100px;
+  }
+  .header-container {
+    display: flex;
+    width: 500px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 0 auto;
+  }
+  .search-bar {
+    /* order: 1; */
+    width: 400px;
+  }
+  .nav-bar {
+    /* order: 2; */
+  }
+  @media(min-width: 831px) {
+    .header-container {
+      width: 700px;
+      justify-content: flex-start;
+    }
+    .search-bar {
+      padding: 30px;
+    }
+    .nav-bar {
+      padding-left: 0;
+    }
   }
 </style>

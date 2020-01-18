@@ -118,6 +118,7 @@
       },
       similar() {
         return this.getRecommendedMovies();
+        // return this.$store.getters.getRecommendedMovies;
       },
       cast() {
         return this.getCast();

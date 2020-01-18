@@ -1,6 +1,6 @@
 <template>
   <form v-on:submit.prevent="">
-    <input v-on:keyup.enter="search" type="text" v-model.trim="input" placeholder="Search">
+    <input class="movie-search" v-on:keyup.enter="search" type="text" v-model.trim="input" placeholder="Search">
   </form>
 </template>
 
@@ -24,3 +24,14 @@ export default {
   }
 }
 </script>
+
+<style>
+  .movie-search {
+    width: 296px;
+  }
+  @media (min-width: 830px) {
+    .movie-search {
+      width: 562px;
+    }
+  }
+</style>
