@@ -16,6 +16,10 @@ export default {
   methods: {
     ...mapActions(["fetchMovieList", "setQuery", "setPage"]),
     search() {
+      // console.log(this.$route.name);
+      if(this.$route.name === "description page") {
+        this.$router.push({name: "home"});
+      }
       this.setQuery(this.input);
       this.setPage(1);
       this.fetchMovieList();
