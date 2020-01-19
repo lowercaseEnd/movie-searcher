@@ -1,14 +1,16 @@
 <template>
   <div id="app">
-    <div class="header-container">
-      <nav class="nav-bar" id="nav">
-        <router-link to="/" v-on:click.native="setFirstPage">
-        <!-- <img class="logo" alt="TMDB logo" src="@/assets/tmdb-logo.png" -->
-        <!-- /> -->
-        TMDb app
-        </router-link>
-      </nav>
-      <Search class="search-bar" />
+    <div class="color-container">
+      <div class="header-container">
+        <nav class="nav-bar" id="nav">
+          <router-link to="/" v-on:click.native="setFirstPage">
+            <!-- <img class="logo" alt="TMDB logo" src="@/assets/tmdb-logo.png" -->
+            <!-- /> -->
+            TMDb Movie Search App
+          </router-link>
+        </nav>
+        <Search class="search-bar" />
+      </div>
     </div>
 
     <router-view v-if="dataReady" />
@@ -54,18 +56,38 @@
     text-align: center;
     color: #2c3e50;
   }
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  /* TEST */
 
-  .nav-bar{
+/***
+#393e46
+#e5dfdf */
+  #app {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+
+  /* TEST */
+  .nav-bar {
     padding: 30px;
+  }
+  .color-container {
+    background-color: #3c4245;
+    width: 100%;
   }
 
   #nav a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #ffffff;
   }
 
   #nav a.router-link-exact-active {
-    color: #42b983;
+    color: #ffffff;
   }
   .logo {
     display: block;
@@ -74,7 +96,7 @@
   }
   .header-container {
     display: flex;
-    width: 500px;
+    width: 400px;
     justify-content: space-around;
     flex-wrap: wrap;
     margin: 0 auto;
@@ -86,7 +108,7 @@
   .nav-bar {
     /* order: 2; */
   }
-  @media(min-width: 831px) {
+  @media (min-width: 831px) {
     .header-container {
       width: 700px;
       justify-content: flex-start;
@@ -96,6 +118,11 @@
     }
     .nav-bar {
       padding-left: 0;
+    }
+  }
+  @media (min-width: 1230px) {
+    .header-container {
+      width: 1100px;
     }
   }
 </style>

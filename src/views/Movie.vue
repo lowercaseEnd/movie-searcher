@@ -161,4 +161,8 @@
   .movie-full__title {
     text-align: center;
   }
+  .movie-page {
+    /* background-color: #e3e7f1; */
+    padding-top: 20px;
+  }
 </style>

@@ -30,14 +30,14 @@ export default {
         last = this.getPages().total_pages,
         delta = 2,
         left = current - delta,
-        right = current + delta + 1,
+        right = current + delta,
         range = [],
         rangeWithDots = [],
         l;
   
     range.push(1)  
-    for (let i = left; i <= right - 1; i++) {
-        if (i >= left && i < right && i < last && i > 1) {
+    for (let i = left; i <= right; i++) {
+        if (i < right + 1 && i < last && i > 1) {
         range.push(i);
         }
     }  
@@ -66,7 +66,7 @@ export default {
     list-style: none;
     display: flex;
     flex-wrap: nowrap;
-    width: 500px;
+    width: 200px;
     margin: 0 auto;
   }
   .pages-list__item {

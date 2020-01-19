@@ -28,10 +28,18 @@ export default {
 <style>
   .movie-search {
     width: 296px;
+    height: 20px;
+    margin-bottom: 20px;
   }
   @media (min-width: 830px) {
     .movie-search {
-      width: 562px;
+      width: 462px;
+      margin-bottom: 0;
+    }
+  }
+  @media (min-width: 1230px) {
+    .movie-search {
+      width: 862px;
     }
   }
 </style>
