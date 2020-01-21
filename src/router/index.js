@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Home from "@/views/Home";
 import Movie from "@/views/Movie";
+import NotFound from "@/components/NotFound"
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,10 @@ const routes = [
     path: "/title/:id",
     name: "description page",
     component: Movie
+  },
+  {
+    path: "*",
+    component: NotFound
   }
 ];
 
@@ -30,9 +35,6 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
-  // scrollBehavior(to, from, savedPosition) {
-  //   return { x: 0, y: 0 };
-  // }
 });
 
 export default router;

@@ -23,5 +23,9 @@ export default {
 </script>
 
 <style>
-
+  .cast-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 </style>

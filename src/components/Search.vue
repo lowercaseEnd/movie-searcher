@@ -35,7 +35,12 @@ export default {
     height: 20px;
     margin-bottom: 20px;
   }
-  @media (min-width: 830px) {
+  @media (min-width: 635px) {
+    .movie-search {
+      width: 396px;
+    }
+  }
+  @media (min-width: 831px) {
     .movie-search {
       width: 462px;
       margin-bottom: 0;

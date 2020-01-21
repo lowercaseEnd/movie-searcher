@@ -14,11 +14,12 @@
         <p class="movie-full__info">
           <b>Budget</b>: {{ movie.budget }} <span class="dollar-sign">$</span>
         </p>
-        <p class="movie-full__info">{{ movie.overview }}</p>
         <p class="movie-full__info"><b>Status</b>: {{ movie.status }}</p>
         <p class="movie-full__info">
           <b>IMDB link</b>: <a v-bind:href="url">{{ url }}</a>
         </p>
+        <p class="movie-full__info movie-full__info--plot">{{ movie.overview }}</p>
+        <p class="cast">Cast:</p>
         <Cast v-bind:cast="cast" />
         <!-- {{ movie }} -->
       </div>
@@ -144,10 +145,13 @@
 <style>
   .movie-full {
     display: flex;
-    width: 800px;
-    flex-direction: row-reverse;
+    width: 300px;
+    /* flex-direction: row-reverse; */
+    flex-direction: column-reverse;
     margin: 0 auto;
     text-align: initial;
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
   }
   .movie-poster {
     display: block;
@@ -155,8 +159,8 @@
     height: 400px;
   }
   .container {
-    width: 500px;
-    margin-left: 70px;
+    /* width: 500px; */
+    /* margin-left: 70px; */
   }
   .movie-full__title {
     text-align: center;
@@ -164,5 +168,28 @@
   .movie-page {
     /* background-color: #e3e7f1; */
     padding-top: 20px;
+  }
+
+  @media (min-width: 831px) {
+    .movie-full {
+      flex-direction: row-reverse;
+      width: 700px;
+    }
+    .movie-full__info--plot {
+      margin-top: 20px;
+    }
+
+    .movie-poster {
+      margin-top: 29px;
+    }
+    .container {
+      padding-left: 30px;
+    }
+  }
+
+  @media (min-width: 1230px) {
+    .movie-full {
+      width: 1100px;
+    }
   }
 </style>
