@@ -1,4 +1,3 @@
-const API_KEY = "60e1831dec35a216fdaff508cdf5675c";
 //module for getting extended info about movie
 export default {
   state: {
@@ -10,13 +9,13 @@ export default {
     }
   },
   actions: {
-    async fetchMovieInfo(context, id) {
+    async fetchMovieInfo({commit, rootState}, id) {
       const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${rootState.global.personalApiKey}&language=en-US`
       );
       const movie = await res.json();
 
-      context.commit("saveMovie", movie);
+      commit("saveMovie", movie);
     }
   },
   getters: {

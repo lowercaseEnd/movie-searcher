@@ -1,17 +1,15 @@
-const API_KEY = "60e1831dec35a216fdaff508cdf5675c";
-
 export default {
   state: {
     config: {}
   },
   actions: {
-    async fetchConfig(context) {
-      let url = `https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`;
+    async fetchConfig({commit, rootState}) {
+      let url = `https://api.themoviedb.org/3/configuration?api_key=${rootState.global.personalApiKey}`;
       let res = await fetch(url);
 
       let config = await res.json();
 
-      context.commit("saveConfig", config);
+      commit("saveConfig", config);
     }
   },
   mutations: {

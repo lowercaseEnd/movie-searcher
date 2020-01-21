@@ -5,6 +5,7 @@ import cast from "./cast";
 import search from "./search";
 import movieInfo from "./movieInfo";
 import config from  "./config";
+import global from "./global";
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
         cast,
         search,
         movieInfo,
-        config
+        config,
+        global
     }
 })

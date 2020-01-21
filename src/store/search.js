@@ -1,4 +1,3 @@
-const API_KEY = "60e1831dec35a216fdaff508cdf5675c"
 //module for getting search results from tmdb
 export default {
   state: {
@@ -7,22 +6,22 @@ export default {
     page: 1
   },
   actions: {
-    async fetchMovieList(context) {
+    async fetchMovieList({getters, commit, rootState}) {
       let searchString = "";
-      let page = context.getters.getPage;
-      let query = context.getters.getQuery;
+      let page = getters.getPage;
+      let query = getters.getQuery;
       
       //if user input search query then display popular movies
       if(query) {
-        searchString = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`;
+        searchString = `https://api.themoviedb.org/3/search/movie?api_key=${rootState.global.personalApiKey}&language=en-US&query=${query}&page=${page}&include_adult=false`;
       } else {
-        searchString = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`;
+        searchString = `https://api.themoviedb.org/3/movie/popular?api_key=${rootState.global.personalApiKey}&language=en-US&page=${page}`;
       }
       
       const response = await fetch(searchString);
       const movies = await response.json();
 
-      context.commit("writeMovies", movies);
+      commit("writeMovies", movies);
     },
     //save query so pagination is possible
     setQuery(context, query) {

@@ -1,17 +1,17 @@
-const API_KEY = "60e1831dec35a216fdaff508cdf5675c";
+// const API_KEY = "60e1831dec35a216fdaff508cdf5675c";
 //module for getting information about cast
 export default {
   state: {
     cast: []
   },
   actions: {
-    async fetchCast(context, id) {
+    async fetchCast({commit, rootState}, id) {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`
+        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${rootState.global.personalApiKey}`
       );
       const crew = await response.json();
 
-      context.commit("writeCastMovies", crew.cast);
+      commit("writeCastMovies", crew.cast);
     }
   },
   mutations: {
