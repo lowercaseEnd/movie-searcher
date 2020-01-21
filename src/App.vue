@@ -12,15 +12,15 @@
         <Search class="search-bar" />
       </div>
     </div>
-
-    <router-view v-if="dataReady" />
+    <Loader v-if="!dataReady" />
+    <router-view v-else />
   </div>
 </template>
 
 <script>
-  //60e1831dec35a216fdaff508cdf5675c - api code
   import { mapActions } from "vuex";
   import Search from "@/components/Search";
+  import Loader from "@/components/Loader";
 
   export default {
     data() {
@@ -29,7 +29,8 @@
       };
     },
     components: {
-      Search
+      Search,
+      Loader
     },
     methods: {
       ...mapActions(["setPage", "setQuery", "fetchMovieList", "fetchConfig"]),
@@ -43,7 +44,7 @@
     async created() {
       //download config if user doenst have one
       await this.fetchConfig();
-      this.dataReady = true;
+      setTimeout( () => this.dataReady = true, 1000);
     }
   };
 </script>

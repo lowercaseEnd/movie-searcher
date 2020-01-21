@@ -1,36 +1,43 @@
 <template>
   <section class="movie-page">
-    <div class="movie-full">
-      <div class="container">
-        <h2 class="movie-full__title">{{ movie.title }}</h2>
-        <p class="movie-full__info">
-          <b>Genres</b>:
-          <span v-for="genre in movie.genres" v-bind:key="genre.id"
-            >{{ genre.name }}
-          </span>
-        </p>
-        <p class="movie-full__info"><b>Release date</b>: {{ getDate() }}</p>
-        <p class="movie-full__info"><b>Runtime</b>: {{ movie.runtime }} min</p>
-        <p class="movie-full__info">
-          <b>Budget</b>: {{ movie.budget }} <span class="dollar-sign">$</span>
-        </p>
-        <p class="movie-full__info"><b>Status</b>: {{ movie.status }}</p>
-        <p class="movie-full__info">
-          <b>IMDB link</b>: <a v-bind:href="url">{{ url }}</a>
-        </p>
-        <p class="movie-full__info movie-full__info--plot">{{ movie.overview }}</p>
-        <p class="cast">Cast:</p>
-        <Cast v-bind:cast="cast" />
-        <!-- {{ movie }} -->
-      </div>
+    <Loader v-if="isLoading" />
+    <div v-else>
+      <div class="movie-full">
+        <div class="container">
+          <h2 class="movie-full__title">{{ movie.title }}</h2>
+          <p class="movie-full__info">
+            <b>Genres</b>:
+            <span v-for="genre in movie.genres" v-bind:key="genre.id"
+              >{{ genre.name }}
+            </span>
+          </p>
+          <p class="movie-full__info"><b>Release date</b>: {{ getDate() }}</p>
+          <p class="movie-full__info">
+            <b>Runtime</b>: {{ movie.runtime }} min
+          </p>
+          <p class="movie-full__info">
+            <b>Budget</b>: {{ movie.budget }} <span class="dollar-sign">$</span>
+          </p>
+          <p class="movie-full__info"><b>Status</b>: {{ movie.status }}</p>
+          <p class="movie-full__info">
+            <b>IMDB link</b>: <a v-bind:href="url">{{ url }}</a>
+          </p>
+          <p class="movie-full__info movie-full__info--plot">
+            {{ movie.overview }}
+          </p>
+          <p class="cast">Cast:</p>
+          <Cast v-bind:cast="cast" />
+          <!-- {{ movie }} -->
+        </div>
 
-      <img class="movie-poster" v-bind:src="image" />
-    </div>
-    <div v-if="recommendations.length > 0">
-      <h2>Similar movies:</h2>
-      <SimilarList v-bind:moviesList="similar" />
-      <h2>Recommended movies:</h2>
-      <SimilarList v-bind:moviesList="recommendations" />
+        <img class="movie-poster" v-bind:src="image" />
+      </div>
+      <div v-if="recommendations.length > 0">
+        <h2>Similar movies:</h2>
+        <SimilarList v-bind:moviesList="similar" />
+        <h2>Recommended movies:</h2>
+        <SimilarList v-bind:moviesList="recommendations" />
+      </div>
     </div>
 
     <!-- <router-view /> -->
@@ -41,15 +48,16 @@
   import { mapActions, mapGetters, mapState } from "vuex";
   import SimilarList from "@/components/SimilarList";
   import Cast from "@/components/Cast";
+  import Loader from "@/components/Loader";
 
   export default {
     data() {
-      return {
-      };
+      return {};
     },
     components: {
       SimilarList,
-      Cast
+      Cast,
+      Loader
     },
     methods: {
       ...mapActions(["fetchSimilarMovies", "fetchCast", "fetchMovieInfo"]),
@@ -123,10 +131,32 @@
       },
       cast() {
         return this.getCast();
+      },
+      isLoading() {
+        setTimeout(() => {return this.$store.getters.getLoadingState;}, 1000);
+        
       }
     },
+    // beforeRouteUpdate(to, from, next) {
+      // this.$store.commit("changeLoadingState", true);
+      // console.log("Updating route");
+      // this.fetchMovieInfo(this.$route.params.id);
+      // this.fetchCast(this.$route.params.id);
+      // this.fetchSimilarMovies({
+      //   id: this.$route.params.id,
+      //   key: "similar"
+      // });
+      // this.fetchSimilarMovies({
+      //   id: this.$route.params.id,
+      //   key: "recommendations"
+      // });
+      // this.$store.commit("changeLoadingState", false);
+      // console.log("route updated");
+      // next();
+    // },
     watch: {
       $route(to, from) {
+        this.$store.commit("changeLoadingState", true);
         this.fetchMovieInfo(this.$route.params.id);
         this.fetchCast(this.$route.params.id);
         this.fetchSimilarMovies({
@@ -137,6 +167,7 @@
           id: this.$route.params.id,
           key: "recommendations"
         });
+        this.$store.commit("changeLoadingState", false);
       }
     }
   };
