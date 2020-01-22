@@ -1,46 +1,48 @@
 <template>
   <section class="movie-page">
     <Loader v-if="isLoading" />
-    <div v-else>
-      <div class="movie-full">
-        <div class="container">
-          <h2 class="movie-full__title">{{ movie.title }}</h2>
-          <p class="movie-full__info">
-            <b>Genres</b>:
-            <span v-for="genre in movie.genres" v-bind:key="genre.id"
-              >{{ genre.name }}
-            </span>
-          </p>
-          <p class="movie-full__info"><b>Release date</b>: {{ getDate() }}</p>
-          <p class="movie-full__info">
-            <b>Runtime</b>: {{ movie.runtime }} min
-          </p>
-          <p class="movie-full__info">
-            <b>Budget</b>: {{ movie.budget }} <span class="dollar-sign">$</span>
-          </p>
-          <p class="movie-full__info"><b>Status</b>: {{ movie.status }}</p>
-          <p class="movie-full__info">
-            <b>IMDB link</b>: <a v-bind:href="url">{{ url }}</a>
-          </p>
-          <p class="movie-full__info movie-full__info--plot">
-            {{ movie.overview }}
-          </p>
-          <p class="cast">Cast:</p>
-          <Cast v-bind:cast="cast" />
-          <!-- {{ movie }} -->
-        </div>
+    <div v-else class="movie-full">
+      <div class="container">
+        <h2 class="movie-full__title">{{ movie.title }}</h2>
+        <p class="movie-full__info">
+          <b>Genres</b>:
+          <span v-for="genre in movie.genres" v-bind:key="genre.id"
+            >{{ genre.name }}
+          </span>
+        </p>
+        <p class="movie-full__info"><b>Release date</b>: {{ getDate() }}</p>
+        <p class="movie-full__info"><b>Runtime</b>: {{ movie.runtime }} min</p>
+        <p class="movie-full__info">
+          <b>Budget</b>: {{ movie.budget }} <span class="dollar-sign">$</span>
+        </p>
+        <p class="movie-full__info"><b>Status</b>: {{ movie.status }}</p>
+        <p class="movie-full__info">
+          <b>IMDB link</b>: <a v-bind:href="url">{{ url }}</a>
+        </p>
+        <p class="movie-full__info movie-full__info--plot">
+          {{ movie.overview }}
+        </p>
+        <p class="cast">Cast:</p>
+        <Cast v-bind:cast="cast" />
+        <button
+          type="button"
+          class="movie-full__favourites"
+          title="Add to favourites"
+          v-on:click="addToFavourites"
+        >
+          Add
+        </button>
+        <!-- {{ movie }} -->
+      </div>
 
-        <img class="movie-poster" v-bind:src="image" />
-      </div>
-      <div v-if="recommendations.length > 0">
-        <h2>Similar movies:</h2>
-        <SimilarList v-bind:moviesList="similar" />
-        <h2>Recommended movies:</h2>
-        <SimilarList v-bind:moviesList="recommendations" />
-      </div>
+      <img class="movie-poster" v-bind:src="image" />
     </div>
-
-    <!-- <router-view /> -->
+    <div v-if="recommendations.length > 0">
+      <h2>Similar movies:</h2>
+      <SimilarList v-bind:moviesList="similar" />
+      <h2>Recommended movies:</h2>
+      <SimilarList v-bind:moviesList="recommendations" />
+    </div>
   </section>
 </template>
 
@@ -87,6 +89,16 @@
         date += monthsName[this.releaseDate.getMonth()] + " ";
         date += this.releaseDate.getFullYear();
         return date;
+      },
+      addToFavourites() {
+        let local = localStorage.getItem("favourites");
+        let parsed = {};
+        if (local) {
+          parsed = JSON.parse(local);
+        }
+        parsed[this.movie.id] = this.movie;
+        localStorage.setItem("favourites", JSON.stringify(parsed));
+        console.log(parsed);
       }
     },
     async mounted() {
@@ -127,33 +139,14 @@
       },
       similar() {
         return this.getRecommendedMovies();
-        // return this.$store.getters.getRecommendedMovies;
       },
       cast() {
         return this.getCast();
       },
       isLoading() {
-        setTimeout(() => {return this.$store.getters.getLoadingState;}, 1000);
-        
+        return this.$store.getters.getLoadingState;
       }
     },
-    // beforeRouteUpdate(to, from, next) {
-      // this.$store.commit("changeLoadingState", true);
-      // console.log("Updating route");
-      // this.fetchMovieInfo(this.$route.params.id);
-      // this.fetchCast(this.$route.params.id);
-      // this.fetchSimilarMovies({
-      //   id: this.$route.params.id,
-      //   key: "similar"
-      // });
-      // this.fetchSimilarMovies({
-      //   id: this.$route.params.id,
-      //   key: "recommendations"
-      // });
-      // this.$store.commit("changeLoadingState", false);
-      // console.log("route updated");
-      // next();
-    // },
     watch: {
       $route(to, from) {
         this.$store.commit("changeLoadingState", true);
@@ -188,10 +181,6 @@
     display: block;
     width: 300px;
     height: 400px;
-  }
-  .container {
-    /* width: 500px; */
-    /* margin-left: 70px; */
   }
   .movie-full__title {
     text-align: center;

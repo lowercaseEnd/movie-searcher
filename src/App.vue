@@ -8,6 +8,9 @@
             <!-- /> -->
             TMDb Movie Search App
           </router-link>
+          <router-link to="/favourites">
+            favourites
+          </router-link>
         </nav>
         <Search class="search-bar" />
       </div>
@@ -44,7 +47,7 @@
     async created() {
       //download config if user doenst have one
       await this.fetchConfig();
-      setTimeout( () => this.dataReady = true, 1000);
+      this.dataReady = true;
     }
   };
 </script>

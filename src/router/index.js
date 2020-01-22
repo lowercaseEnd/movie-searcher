@@ -2,7 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/views/Home";
 import Movie from "@/views/Movie";
-import NotFound from "@/components/NotFound"
+import NotFound from "@/components/NotFound";
+import Favourites from "@/views/Favourites";
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,11 @@ const routes = [
     path: "/title/:id",
     name: "description page",
     component: Movie
+  },
+  {
+    path: "/favourites",
+    name: "favourites",
+    component: Favourites
   },
   {
     path: "*",

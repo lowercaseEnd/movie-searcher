@@ -1,31 +1,22 @@
 <template>
-  <li class="movie-list__item" v-on:click="openPage">
+  <li v-on:click="openPage">
     <img class="movie-list__poster" v-bind:src="image">
-    <p>Release date: {{ this.date.getFullYear() }}</p>
     <h2 >{{ movie.title }}</h2>
-    <!-- {{movie}} -->
-    <!-- <img v-bind:src="require(this.image)" > -->
   </li>
 </template>
 
 <script>
 import {mapGetters} from "vuex";
 
-  export default {
-    props: {
-      movie: {
-        type: Object,
-        required: true
-      },
-    },
-    data() {
-      return {
-        date: new Date(this.movie.release_date)
-      };
-    },
-    methods: {
-      ...mapGetters(["getConfig"]),
-      openPage() {
+export default {
+  props: {
+    movie: {
+      type: Object
+    }
+  },
+  methods: {
+    ...mapGetters(["getConfig"]),
+    openPage() {
         this.$router.push({
           name: "description page",
           params: {
@@ -33,8 +24,8 @@ import {mapGetters} from "vuex";
           }
         });
       },
-    },
-    computed: {
+  },
+  computed: {
       config() {
         return this.getConfig();
       },
@@ -47,17 +38,5 @@ import {mapGetters} from "vuex";
           this.movie.poster_path;
       }
     }
-  };
+}
 </script>
-
-<style>
-  .movie-list__item {
-    /* border: 1px solid #eeeeee; */
-    width: 300px;
-    margin: 0 auto;
-  }
-  .movie-list__poster {
-    width: 300px;
-    height: 400px;
-  }
-</style>
