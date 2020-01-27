@@ -40,9 +40,9 @@
     </div>
     <div v-if="recommendations.length > 0">
       <h2>Similar movies:</h2>
-      <SimilarList v-bind:moviesList="similar" />
+      <SimilarList class="recommendations" v-bind:moviesList="similar" />
       <h2>Recommended movies:</h2>
-      <SimilarList v-bind:moviesList="recommendations" />
+      <SimilarList class="recommendations" v-bind:moviesList="recommendations" />
     </div>
   </section>
 </template>
@@ -56,6 +56,7 @@
   export default {
     data() {
       return {
+        //todo: icon should be filled if movie is in favourites
         heartIcon: require("../assets/heart-icon-empty.svg"),
       };
     },
@@ -200,39 +201,21 @@
     padding: 0;
     border: none;
     background-color: transparent;
-    /* background-image: url("./../assets/heart-icon-empty.svg"); */
   }
-  /* .movie-full__favourites::before,
-  .movie-full__favourites::after {
-    content: "";
-    position: absolute;
-    width: 30px;
-    height: 50px;
-    background-color: red;
-    border-radius: 50px;
-  }
-  .movie-full__favourites::after {
-    top: 0;
-    left: 15px;
-    transform: rotate(45deg);
-  }
-  .movie-full__favourites::before {
-    top: 0;
-    left: 0;
-    transform: rotate(-45deg); */
-  /* } */
+
 
   /****** */
-
+  .recommendations {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 20px;
+  }
   .movie-full {
     display: flex;
     width: 300px;
-    /* flex-direction: row-reverse; */
     flex-direction: column-reverse;
     margin: 0 auto;
     text-align: initial;
-    /* display: grid; */
-    /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
   }
   .movie-poster {
     display: block;
