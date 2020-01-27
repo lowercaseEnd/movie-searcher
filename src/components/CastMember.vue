@@ -15,13 +15,11 @@
         </tr>
       </tbody>
     </table> -->
-    <div class="real-info">
-      <img class="cast-list__member-photo" v-bind:src="image" />
-      <p class="cast-list__member-name">{{ castMember.name }}</p>
-    </div>
-    <p class="cast-list__member-character">
+    <img class="cast-list__member-photo" v-bind:src="image" />
+    <p class="cast-list__member-name">{{ castMember.name }}</p>
+    <!-- <p class="cast-list__member-character">
               {{ castMember.character }}
-            </p>
+            </p> -->
   </li>
 </template>
 
@@ -57,30 +55,30 @@
 </script>
 
 <style>
-.cast-list__member-photo {
+  /* .cast-list__member-photo {
   display: none;
-}
+} */
+.cast-list__member-photo {
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+    }
   .photo {
     /* width: 100px; */
     /* height: 100px; */
   }
-  
+
   .cast-list__member-name,
   .cast-list__member-character {
     display: inline-block;
   }
   @media (min-width: 831px) {
-    .cast-list__member-photo {
-      display: inline-block;
-    }
-    .cast-list__member-photo {
-    width: 100px;
-    height: 100px;
-  }
+    
   }
   .cast-list__item {
     display: flex;
-    width: 300px;
-    justify-content: space-evenly;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10px;
   }
 </style>

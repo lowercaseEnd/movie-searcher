@@ -28,9 +28,9 @@
           type="button"
           class="movie-full__favourites"
           title="Add to favourites"
-          v-on:click="addToFavourites"
+          v-on:click="toggleFavourites"
         >
-        <img v-bind:src="heartIcon">
+          <img v-bind:src="heartIcon" />
           <!-- Add -->
         </button>
         <!-- {{ movie }} -->
@@ -42,7 +42,10 @@
       <h2>Similar movies:</h2>
       <SimilarList class="recommendations" v-bind:moviesList="similar" />
       <h2>Recommended movies:</h2>
-      <SimilarList class="recommendations" v-bind:moviesList="recommendations" />
+      <SimilarList
+        class="recommendations"
+        v-bind:moviesList="recommendations"
+      />
     </div>
   </section>
 </template>
@@ -56,7 +59,7 @@
   export default {
     data() {
       return {
-        heartIcon: require("../assets/heart-icon-empty.svg"),
+        heartIcon: require("../assets/heart-icon-empty.svg")
       };
     },
     components: {
@@ -93,21 +96,18 @@
         date += this.releaseDate.getFullYear();
         return date;
       },
-      addToFavourites() {
+      toggleFavourites() {
         let local = localStorage.getItem("favourites");
         let parsed = JSON.parse(local) || {};
-        if(parsed[this.movie.id]) {
+        if (parsed[this.movie.id]) {
           this.heartIcon = require("./../assets/" + "heart-icon-empty.svg");
-          delete(parsed[this.movie.id]);
+          delete parsed[this.movie.id];
         } else {
           this.heartIcon = require("./../assets/" + "heart-icon-filled.svg");
           parsed[this.movie.id] = this.movie;
         }
         localStorage.setItem("favourites", JSON.stringify(parsed));
-      },
-      // showImage() {
-      //   return require("../assets/" + this.heartIcon);
-      // }
+      }
     },
     async mounted() {
       await this.fetchMovieInfo(this.$route.params.id);
@@ -123,12 +123,12 @@
         });
       }
       let local = localStorage.getItem("favourites");
-        let parsed = JSON.parse(local) || {};
-        if(parsed[this.$route.params.id]) {
-          this.heartIcon = require("../assets/heart-icon-filled.svg");
-        } else {
-          this.heartIcon = require("../assets/heart-icon-empty.svg");
-        }
+      let parsed = JSON.parse(local) || {};
+      if (parsed[this.$route.params.id]) {
+        this.heartIcon = require("../assets/heart-icon-filled.svg");
+      } else {
+        this.heartIcon = require("../assets/heart-icon-empty.svg");
+      }
     },
     computed: {
       releaseDate() {
@@ -160,7 +160,7 @@
       },
       isLoading() {
         return this.$store.getters.getLoadingState;
-      },
+      }
     },
     watch: {
       $route(to, from) {
@@ -175,9 +175,10 @@
           id: this.$route.params.id,
           key: "recommendations"
         });
-         let local = localStorage.getItem("favourites");
+        //this code will check if movie is in favourites on $route change
+        let local = localStorage.getItem("favourites");
         let parsed = JSON.parse(local) || {};
-        if(parsed[this.$route.params.id]) {
+        if (parsed[this.$route.params.id]) {
           this.heartIcon = require("../assets/heart-icon-filled.svg");
         } else {
           this.heartIcon = require("../assets/heart-icon-empty.svg");
@@ -191,21 +192,30 @@
 <style>
   .container {
     position: relative;
+    margin-top: 20px;
   }
-
+  @media (min-width: 831px) {
+    .container {
+      margin-top: 0;
+    }
+  }
   /*Styling button */
   .movie-full__favourites {
     position: absolute;
-    top: 400px;
-    left: -160px;
+    top: -26px;
+    left: 120px;
     width: 40px;
     height: 40px;
     padding: 0;
     border: none;
     background-color: transparent;
   }
-
-
+  @media (min-width: 831px) {
+    .movie-full__favourites {
+    top: 430px;
+    left: -300px;
+    }
+  }
   /****** */
   .recommendations {
     display: grid;
