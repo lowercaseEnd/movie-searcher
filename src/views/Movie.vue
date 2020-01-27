@@ -31,7 +31,6 @@
           v-on:click="toggleFavourites"
         >
           <img v-bind:src="heartIcon" />
-          <!-- Add -->
         </button>
         <!-- {{ movie }} -->
       </div>

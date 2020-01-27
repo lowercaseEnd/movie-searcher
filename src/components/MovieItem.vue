@@ -1,28 +1,41 @@
 <template>
-  <li class="movie-list__item" v-on:click="openPage">
-    <img class="movie-list__poster" v-bind:src="image">
-    <p>Release date: {{ this.date.getFullYear() }}</p>
+  <li class="movie-list__item" >
+    <img v-on:click="openPage" class="movie-list__poster" v-bind:src="image" />
+    <p v-on:click="openPage">Release date: {{ this.date.getFullYear() }}</p>
     <!-- {{genres}} -->
-    <p> <span v-for="genre in genres.slice(0, 3)" v-bind:key="genre.name">{{genre.name}} </span> </p>
-    <h2 >{{ movie.title }}</h2>
+    <p>
+      <span v-for="genre in genres.slice(0, 3)" v-bind:key="genre.name"
+        >{{ genre.name }}
+      </span>
+    </p>
+    <h2 v-on:click="openPage">{{ movie.title }}</h2>
+    <button
+      type="button"
+      class="movie-item__favourites"
+      title="Add to favourites"
+      v-on:click="toggleFavourites"
+    >
+      <img v-bind:src="heartIcon" />
+    </button>
     <!-- {{movie}} -->
     <!-- <img v-bind:src="require(this.image)" > -->
   </li>
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+  import { mapGetters } from "vuex";
 
   export default {
     props: {
       movie: {
         type: Object,
         required: true
-      },
+      }
     },
     data() {
       return {
-        date: new Date(this.movie.release_date)
+        date: new Date(this.movie.release_date),
+        heartIcon: require("../assets/heart-icon-empty.svg")
       };
     },
     methods: {
@@ -35,6 +48,27 @@ import {mapGetters} from "vuex";
           }
         });
       },
+      toggleFavourites() {
+        let local = localStorage.getItem("favourites");
+        let parsed = JSON.parse(local) || {};
+        if (parsed[this.movie.id]) {
+          this.heartIcon = require("./../assets/" + "heart-icon-empty.svg");
+          delete parsed[this.movie.id];
+        } else {
+          this.heartIcon = require("./../assets/" + "heart-icon-filled.svg");
+          parsed[this.movie.id] = this.movie;
+        }
+        localStorage.setItem("favourites", JSON.stringify(parsed));
+      }
+    },
+    mounted() {
+      let local = localStorage.getItem("favourites");
+      let parsed = JSON.parse(local) || {};
+      if (parsed[this.movie.id]) {
+        this.heartIcon = require("../assets/heart-icon-filled.svg");
+      } else {
+        this.heartIcon = require("../assets/heart-icon-empty.svg");
+      }
     },
     computed: {
       config() {
@@ -42,25 +76,27 @@ import {mapGetters} from "vuex";
       },
       image() {
         if (this.movie.poster_path === null) {
-          return 'https://www.turfgrasssod.org/wp-content/themes/linstar/assets/images/default.jpg';
+          return "https://www.turfgrasssod.org/wp-content/themes/linstar/assets/images/default.jpg";
         }
-        return this.config.secure_base_url +
+        return (
+          this.config.secure_base_url +
           this.config.backdrop_sizes[0] +
-          this.movie.poster_path;
+          this.movie.poster_path
+        );
       },
       genres() {
         let allGenres = this.getGenres();
         let movieGenres = [];
         allGenres.forEach(genre => {
-          for(let i = 0; i < this.movie.genre_ids.length; i++) {
-            if(this.movie.genre_ids[i] === genre.id) {
+          for (let i = 0; i < this.movie.genre_ids.length; i++) {
+            if (this.movie.genre_ids[i] === genre.id) {
               movieGenres.push(genre);
               break;
             }
           }
         });
         return movieGenres;
-      }
+      },
     }
   };
 </script>
@@ -70,9 +106,20 @@ import {mapGetters} from "vuex";
     /* border: 1px solid #eeeeee; */
     width: 300px;
     margin: 0 auto;
+    position: relative;
   }
   .movie-list__poster {
     width: 300px;
     height: 400px;
+  }
+  .movie-item__favourites {
+    position: absolute;
+    top: 490px;
+    left: 0;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
   }
 </style>
