@@ -56,7 +56,6 @@
   export default {
     data() {
       return {
-        //todo: icon should be filled if movie is in favourites
         heartIcon: require("../assets/heart-icon-empty.svg"),
       };
     },
@@ -123,6 +122,13 @@
           key: "recommendations"
         });
       }
+      let local = localStorage.getItem("favourites");
+        let parsed = JSON.parse(local) || {};
+        if(parsed[this.$route.params.id]) {
+          this.heartIcon = require("../assets/heart-icon-filled.svg");
+        } else {
+          this.heartIcon = require("../assets/heart-icon-empty.svg");
+        }
     },
     computed: {
       releaseDate() {
@@ -155,17 +161,6 @@
       isLoading() {
         return this.$store.getters.getLoadingState;
       },
-      // heartIcon() {
-      //   let favs = JSON.parse(localStorage.getItem("favourites"));
-      //   if(favs[this.movie.id]) {
-      //     return "heart-icon-filled.svg";
-      //   } else {
-      //     return "heart-icon-empty.svg";
-      //   }
-      // },
-      // showImage() {
-      //   return require("../assets/" + this.heartIcon);
-      // }
     },
     watch: {
       $route(to, from) {
@@ -180,6 +175,13 @@
           id: this.$route.params.id,
           key: "recommendations"
         });
+         let local = localStorage.getItem("favourites");
+        let parsed = JSON.parse(local) || {};
+        if(parsed[this.$route.params.id]) {
+          this.heartIcon = require("../assets/heart-icon-filled.svg");
+        } else {
+          this.heartIcon = require("../assets/heart-icon-empty.svg");
+        }
         this.$store.commit("changeLoadingState", false);
       }
     }
