@@ -30,7 +30,8 @@
           title="Add to favourites"
           v-on:click="addToFavourites"
         >
-          Add
+        <img v-bind:src="heartIcon">
+          <!-- Add -->
         </button>
         <!-- {{ movie }} -->
       </div>
@@ -54,7 +55,9 @@
 
   export default {
     data() {
-      return {};
+      return {
+        heartIcon: require("../assets/heart-icon-empty.svg"),
+      };
     },
     components: {
       SimilarList,
@@ -92,17 +95,19 @@
       },
       addToFavourites() {
         let local = localStorage.getItem("favourites");
-        let parsed = {};
-        if (local) {
-          parsed = JSON.parse(local);
-        }
+        let parsed = JSON.parse(local) || {};
         if(parsed[this.movie.id]) {
+          this.heartIcon = require("./../assets/" + "heart-icon-empty.svg");
           delete(parsed[this.movie.id]);
         } else {
+          this.heartIcon = require("./../assets/" + "heart-icon-filled.svg");
           parsed[this.movie.id] = this.movie;
         }
         localStorage.setItem("favourites", JSON.stringify(parsed));
-      }
+      },
+      // showImage() {
+      //   return require("../assets/" + this.heartIcon);
+      // }
     },
     async mounted() {
       await this.fetchMovieInfo(this.$route.params.id);
@@ -148,7 +153,18 @@
       },
       isLoading() {
         return this.$store.getters.getLoadingState;
-      }
+      },
+      // heartIcon() {
+      //   let favs = JSON.parse(localStorage.getItem("favourites"));
+      //   if(favs[this.movie.id]) {
+      //     return "heart-icon-filled.svg";
+      //   } else {
+      //     return "heart-icon-empty.svg";
+      //   }
+      // },
+      // showImage() {
+      //   return require("../assets/" + this.heartIcon);
+      // }
     },
     watch: {
       $route(to, from) {
@@ -170,6 +186,44 @@
 </script>
 
 <style>
+  .container {
+    position: relative;
+  }
+
+  /*Styling button */
+  .movie-full__favourites {
+    position: absolute;
+    top: 400px;
+    left: -160px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    /* background-image: url("./../assets/heart-icon-empty.svg"); */
+  }
+  /* .movie-full__favourites::before,
+  .movie-full__favourites::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 50px;
+    background-color: red;
+    border-radius: 50px;
+  }
+  .movie-full__favourites::after {
+    top: 0;
+    left: 15px;
+    transform: rotate(45deg);
+  }
+  .movie-full__favourites::before {
+    top: 0;
+    left: 0;
+    transform: rotate(-45deg); */
+  /* } */
+
+  /****** */
+
   .movie-full {
     display: flex;
     width: 300px;
