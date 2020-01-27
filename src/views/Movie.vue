@@ -96,9 +96,12 @@
         if (local) {
           parsed = JSON.parse(local);
         }
-        parsed[this.movie.id] = this.movie;
+        if(parsed[this.movie.id]) {
+          delete(parsed[this.movie.id]);
+        } else {
+          parsed[this.movie.id] = this.movie;
+        }
         localStorage.setItem("favourites", JSON.stringify(parsed));
-        console.log(parsed);
       }
     },
     async mounted() {

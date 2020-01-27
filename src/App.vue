@@ -36,7 +36,7 @@
       Loader
     },
     methods: {
-      ...mapActions(["setPage", "setQuery", "fetchMovieList", "fetchConfig"]),
+      ...mapActions(["setPage", "setQuery", "fetchMovieList", "fetchConfig", "fetchMovieGenres"]),
       setFirstPage() {
         //when pressing home this will show 1st page of popular movies
         this.setPage(1);
@@ -47,6 +47,7 @@
     async created() {
       //download config if user doenst have one
       await this.fetchConfig();
+      await this.fetchMovieGenres();
       this.dataReady = true;
     }
   };
