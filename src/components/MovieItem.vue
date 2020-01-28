@@ -3,9 +3,10 @@
     <img v-on:click="openPage" class="movie-list__poster" v-bind:src="image" />
     <p v-on:click="openPage">Release date: {{ this.date.getFullYear() }}</p>
     <!-- {{genres}} -->
-    <p>
+    <p v-if="this.$route.name === 'home'">
       <span v-for="genre in genres.slice(0, 3)" v-bind:key="genre.name"
-        >{{ genre.name }}
+      >
+      {{ genre.name }}
       </span>
     </p>
     <h2 v-on:click="openPage">{{ movie.title }}</h2>
@@ -15,7 +16,7 @@
       title="Add to favourites"
       v-on:click="toggleFavourites"
     >
-      <img v-bind:src="heartIcon" />
+      <img class="heart-icon" v-bind:src="heartIcon" />
     </button>
     <!-- {{movie}} -->
     <!-- <img v-bind:src="require(this.image)" > -->
@@ -52,10 +53,10 @@
         let local = localStorage.getItem("favourites");
         let parsed = JSON.parse(local) || {};
         if (parsed[this.movie.id]) {
-          this.heartIcon = require("./../assets/" + "heart-icon-empty.svg");
+          this.heartIcon = require("../assets/heart-icon-empty.svg");
           delete parsed[this.movie.id];
         } else {
-          this.heartIcon = require("./../assets/" + "heart-icon-filled.svg");
+          this.heartIcon = require("../assets/heart-icon-filled.svg");
           parsed[this.movie.id] = this.movie;
         }
         localStorage.setItem("favourites", JSON.stringify(parsed));
@@ -102,6 +103,11 @@
 </script>
 
 <style>
+  .heart-icon {
+    width: 30px;
+    height: 30px;
+  }
+
   .movie-list__item {
     /* border: 1px solid #eeeeee; */
     width: 300px;

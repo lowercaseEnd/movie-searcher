@@ -99,10 +99,10 @@
         let local = localStorage.getItem("favourites");
         let parsed = JSON.parse(local) || {};
         if (parsed[this.movie.id]) {
-          this.heartIcon = require("./../assets/" + "heart-icon-empty.svg");
+          this.heartIcon = require("../assets/heart-icon-empty.svg");
           delete parsed[this.movie.id];
         } else {
-          this.heartIcon = require("./../assets/" + "heart-icon-filled.svg");
+          this.heartIcon = require("../assets/heart-icon-filled.svg");
           parsed[this.movie.id] = this.movie;
         }
         localStorage.setItem("favourites", JSON.stringify(parsed));

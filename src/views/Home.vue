@@ -1,9 +1,12 @@
 <template>
   <div class="home">
     <!-- <Search /> -->
+    <div v-if="this.$route.name === 'home'">
       <MovieList v-bind:movies="getMovies" />
       <Pages />
-    <!-- <MovieList v-else v-bind:movies="favourites" /> -->
+    </div>
+
+    <MovieList v-else v-bind:movies="favourites" />
   </div>
 </template>
 
@@ -23,9 +26,14 @@
     methods: mapActions(["fetchMovieList"]),
     computed: {
       ...mapGetters(["getMovies"]),
-      },
+      favourites() {
+        let favs = JSON.parse(localStorage.getItem("favourites"));
+        return favs;
+      }
+    },
     mounted() {
       this.fetchMovieList();
+      // let favs =
     }
   };
 </script>

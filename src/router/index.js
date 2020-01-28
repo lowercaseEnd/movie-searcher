@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 import Home from "@/views/Home";
 import Movie from "@/views/Movie";
 import NotFound from "@/components/NotFound";
-import Favourites from "@/views/Favourites";
 
 Vue.use(VueRouter);
 
@@ -29,7 +28,7 @@ const routes = [
   {
     path: "/favourites",
     name: "favourites",
-    component: Favourites
+    component: Home
   },
   {
     path: "*",
