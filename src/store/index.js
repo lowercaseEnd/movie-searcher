@@ -19,6 +19,6 @@ export default new Vuex.Store({
         movieInfo,
         config,
         global,
-        genres
+        genres,
     }
 })

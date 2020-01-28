@@ -211,8 +211,8 @@
   }
   @media (min-width: 831px) {
     .movie-full__favourites {
-    top: 430px;
-    left: -300px;
+      top: 430px;
+      left: -300px;
     }
   }
   /****** */

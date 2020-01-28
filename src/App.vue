@@ -8,7 +8,7 @@
             <!-- /> -->
             TMDb Movie Search App
           </router-link>
-          <router-link to="/favourites">
+          <router-link v-on:click.native="reloadFavourites" to="/favourites">
             favourites
           </router-link>
         </nav>
@@ -42,6 +42,11 @@
         this.setPage(1);
         this.setQuery("");
         this.fetchMovieList();
+      },
+      reloadFavourites() {
+        if(this.$route.name === "favourites") {
+          this.$router.go();
+        }
       }
     },
     async created() {
@@ -66,7 +71,9 @@
     margin: 0;
   }
   /* TEST */
-
+  .router-link-exact-active {
+    color: blue;
+  }
 /***
 #393e46
 #e5dfdf */
