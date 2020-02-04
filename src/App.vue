@@ -3,6 +3,7 @@
     <div class="color-container">
       <div class="header-container">
         <nav class="nav-bar" id="nav">
+          <Burger />
           <router-link to="/" v-on:click.native="setFirstPage">
             <!-- <img class="logo" alt="TMDB logo" src="@/assets/tmdb-logo.png" -->
             <!-- /> -->
@@ -24,6 +25,7 @@
   import { mapActions } from "vuex";
   import Search from "@/components/Search";
   import Loader from "@/components/Loader";
+  import Burger from "@/components/menu/Burger";
 
   export default {
     data() {
@@ -33,7 +35,8 @@
     },
     components: {
       Search,
-      Loader
+      Loader,
+      Burger
     },
     methods: {
       ...mapActions(["setPage", "setQuery", "fetchMovieList", "fetchConfig", "fetchMovieGenres"]),
