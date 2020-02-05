@@ -7,6 +7,7 @@ import movieInfo from "./movieInfo";
 import config from  "./config";
 import global from "./global";
 import genres from "./genres";
+import burgerMenu from "./burgerMenu";
 
 Vue.use(Vuex);
 
@@ -20,5 +21,6 @@ export default new Vuex.Store({
         config,
         global,
         genres,
+        burgerMenu
     }
 })

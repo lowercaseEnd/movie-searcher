@@ -4,6 +4,13 @@
       <div class="header-container">
         <nav class="nav-bar" id="nav">
           <Burger />
+          <Sidebar>
+            <ul class="sidebar-panel-nav">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </Sidebar>
           <router-link to="/" v-on:click.native="setFirstPage">
             <!-- <img class="logo" alt="TMDB logo" src="@/assets/tmdb-logo.png" -->
             <!-- /> -->
@@ -26,6 +33,7 @@
   import Search from "@/components/Search";
   import Loader from "@/components/Loader";
   import Burger from "@/components/menu/Burger";
+  import Sidebar from "@/components/menu/Sidebar";
 
   export default {
     data() {
@@ -36,10 +44,17 @@
     components: {
       Search,
       Loader,
-      Burger
+      Burger,
+      Sidebar
     },
     methods: {
-      ...mapActions(["setPage", "setQuery", "fetchMovieList", "fetchConfig", "fetchMovieGenres"]),
+      ...mapActions([
+        "setPage",
+        "setQuery",
+        "fetchMovieList",
+        "fetchConfig",
+        "fetchMovieGenres"
+      ]),
       setFirstPage() {
         //when pressing home this will show 1st page of popular movies
         this.setPage(1);
@@ -47,7 +62,7 @@
         this.fetchMovieList();
       },
       reloadFavourites() {
-        if(this.$route.name === "favourites") {
+        if (this.$route.name === "favourites") {
           this.$router.go();
         }
       }
@@ -77,15 +92,13 @@
   .router-link-exact-active {
     color: blue;
   }
-/***
+  /***
 #393e46
 #e5dfdf */
   #app {
     display: flex;
     flex-direction: column;
   }
-
-
 
   /* TEST */
   .nav-bar {

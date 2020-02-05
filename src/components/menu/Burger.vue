@@ -7,15 +7,16 @@
 </template>
 
 <script>
+
 export default {
-  data() {
-    return {
-      isButtonActive: false
-    }
-  },
   methods: {
     toggleButton() {
-      this.isButtonActive = !this.isButtonActive;
+      this.$store.commit("toggleButton");
+    }
+  },
+  computed: {
+    isButtonActive() {
+      return this.$store.getters.getButtonState;
     }
   }
 }
@@ -44,9 +45,6 @@ export default {
     background-color: #fff;
     box-shadow: 0 10px 0 0 #fff, 0 20px 0 0 #fff;
     transition: transform .6s ease;
-  }
-  .active .button-menu {
-    
   }
   .active .button-menu::after{
     box-shadow: none;
