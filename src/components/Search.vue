@@ -31,11 +31,11 @@ export default {
 
 <style>
   .movie-search {
-    width: 296px;
+    width: 100%;
     height: 20px;
     margin-bottom: 20px;
   }
-  @media (min-width: 635px) {
+  /* @media (min-width: 635px) {
     .movie-search {
       width: 396px;
     }
@@ -49,6 +49,6 @@ export default {
   @media (min-width: 1230px) {
     .movie-search {
       width: 862px;
-    }
-  }
+    } */
+  /* } */
 </style>
