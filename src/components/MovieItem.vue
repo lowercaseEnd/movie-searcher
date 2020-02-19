@@ -115,9 +115,10 @@
     position: relative;
     background-color: rgb(53, 73, 94);
     color: #ffffff;
+    min-height: 530px;
   }
   .movie-list__poster {
-    width: 300px;
+    width: 100%;
     height: 400px;
   }
   .movie-item__favourites {
@@ -133,5 +134,6 @@
   .movie-list__title {
     width: 300px;
     margin: 0 auto;
+    padding-bottom: 20px
   }
 </style>

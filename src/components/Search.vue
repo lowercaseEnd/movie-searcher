@@ -32,7 +32,11 @@ export default {
 <style>
   .movie-search {
     width: 100%;
-    height: 20px;
+    height: 30px;
+    padding: 2px 4px;
+    background-color: #424242;
+    color: #ffffff;
+    border: none;
     margin-bottom: 20px;
   }
   /* @media (min-width: 635px) {

@@ -201,7 +201,7 @@
   /*Styling button */
   .movie-full__favourites {
     position: absolute;
-    top: -26px;
+    top: -19px;
     left: 120px;
     width: 40px;
     height: 40px;
@@ -238,7 +238,8 @@
   }
   .movie-page {
     /* background-color: #e3e7f1; */
-    padding-top: 20px;
+    padding-top: 120px;
+    color: #ffffff;
   }
 
   @media (min-width: 831px) {

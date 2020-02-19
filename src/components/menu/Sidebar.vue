@@ -56,10 +56,10 @@ import { mapActions } from "vuex";
   }
   .sidebar-panel {
     overflow-y: auto;
-    background-color: #181a1b;
+    background-color: #424242;
     position: absolute;
     left: 0;
-    top: 140px;
+    top: 148px;
     height: 86vh;
     z-index: 999;
     width: 300px;
@@ -83,7 +83,7 @@ import { mapActions } from "vuex";
     margin: 0 auto;
     padding: 20px;
   }
-  .panel-nav__item:nth-child(1)::before {
+  /* .panel-nav__item:nth-child(1)::before {
     content: "";
     width: 30px;
     height: 30px;
@@ -104,5 +104,5 @@ import { mapActions } from "vuex";
     background-image: url("../../assets/heart-icon-filled.svg");
     background-repeat: no-repeat;
     background-size: contain;
-  }
+  } */
 </style>

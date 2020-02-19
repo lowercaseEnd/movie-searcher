@@ -60,6 +60,9 @@
     padding: 0;
     margin: 0;
   }
+  .project-name {
+    display: none;
+  }
   /* TEST */
   .router-link-exact-active {
     color: blue;
@@ -80,7 +83,7 @@
   .color-container {
     position: fixed;
     z-index: 999;
-    background-color: #3c4245;
+    background-color: rgb(66, 184, 131);
     width: 100%;
   }
 
