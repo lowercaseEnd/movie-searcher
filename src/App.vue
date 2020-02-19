@@ -70,6 +70,7 @@
   .app {
     display: flex;
     flex-direction: column;
+    background-color: #303030;
   }
 
   /* TEST */

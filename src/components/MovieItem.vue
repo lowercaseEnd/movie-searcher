@@ -9,7 +9,7 @@
       {{ genre.name }}
       </span>
     </p>
-    <h2 v-on:click="openPage">{{ movie.title }}</h2>
+    <h2 class="movie-list__title" v-on:click="openPage">{{ movie.title }}</h2>
     <button
       type="button"
       class="movie-item__favourites"
@@ -110,9 +110,11 @@
 
   .movie-list__item {
     /* border: 1px solid #eeeeee; */
-    width: 300px;
+    width: 350px;
     margin: 0 auto;
     position: relative;
+    background-color: rgb(53, 73, 94);
+    color: #ffffff;
   }
   .movie-list__poster {
     width: 300px;
@@ -127,5 +129,9 @@
     background-color: transparent;
     width: 40px;
     height: 40px;
+  }
+  .movie-list__title {
+    width: 300px;
+    margin: 0 auto;
   }
 </style>
