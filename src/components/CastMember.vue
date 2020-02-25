@@ -1,6 +1,6 @@
 <template>
   <li class="cast-list__item">
-    <img class="cast-list__member-photo" v-bind:src="image" />
+    <img class="cast-list__member-photo" v-lazy="image" />
     <p class="cast-list__member-name">{{ castMember.name }}</p>
   </li>
 </template>
@@ -45,9 +45,6 @@
   .cast-list__member-name,
   .cast-list__member-character {
     display: inline-block;
-  }
-  @media (min-width: 831px) {
-    
   }
   .cast-list__item {
     display: flex;

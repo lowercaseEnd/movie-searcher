@@ -1,7 +1,6 @@
 <template>
   <li v-on:click="openPage">
-    <!-- {{ movie }} -->
-    <img v-bind:src="image" />
+    <img v-lazy="image" />
     <h3>{{ movie.title }}</h3>
   </li>
 </template>

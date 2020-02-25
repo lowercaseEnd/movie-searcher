@@ -11,8 +11,6 @@
 
 <script>
   import { mapGetters, mapActions } from "vuex";
-  // import MovieList from "@/components/MovieList";
-  // import Pages from "@/components/Pages";
   const MovieList = () => import("@/components/MovieList");
   const Pages = () => import("@/components/Pages");
 

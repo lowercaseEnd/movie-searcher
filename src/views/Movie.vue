@@ -30,9 +30,8 @@
           title="Add to favourites"
           v-on:click="toggleFavourites"
         >
-          <img v-bind:src="heartIcon" />
+          <img v-lazy="heartIcon" />
         </button>
-        <!-- {{ movie }} -->
       </div>
 
       <img class="movie-poster" v-bind:src="image" />
@@ -51,9 +50,9 @@
 
 <script>
   import { mapActions, mapGetters, mapState } from "vuex";
-  import SimilarList from "@/components/SimilarList";
-  import Cast from "@/components/Cast";
-  import Loader from "@/components/Loader";
+  const SimilarList = () => import("@/components/SimilarList");
+  const Cast = () => import("@/components/Cast");
+  const Loader = () => import("@/components/Loader");
 
   export default {
     data() {

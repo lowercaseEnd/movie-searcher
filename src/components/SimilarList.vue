@@ -22,7 +22,6 @@
 <style>
   .similar-list {
     list-style: none;
-    display: flex;
     overflow-x: auto;
   }
 </style>
