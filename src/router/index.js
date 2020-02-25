@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "@/views/Home";
+// import Home from "@/views/Home";
+const Home = () => import("@/views/Home");
 // import Movie from "@/views/Movie";
 const Movie = () => import("@/views/Movie");
 // import NotFound from "@/components/NotFound";

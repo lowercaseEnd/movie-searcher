@@ -58,6 +58,7 @@ import { mapActions } from "vuex";
     overflow-y: auto;
     background-color: #424242;
     position: absolute;
+    /* transform: translate(-96px, 38px); */
     left: 0;
     top: 148px;
     height: 86vh;
@@ -83,26 +84,4 @@ import { mapActions } from "vuex";
     margin: 0 auto;
     padding: 20px;
   }
-  /* .panel-nav__item:nth-child(1)::before {
-    content: "";
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: url("../../assets/home-icon.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-  .panel-nav__item:nth-child(2)::before {
-    content: "";
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: url("../../assets/heart-icon-filled.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-  } */
 </style>

@@ -2,7 +2,6 @@
   <li class="movie-list__item" >
     <img v-on:click="openPage" class="movie-list__poster" v-bind:src="image" />
     <p v-on:click="openPage">Release date: {{ this.date.getFullYear() }}</p>
-    <!-- {{genres}} -->
     <p v-if="this.$route.name === 'home'">
       <span v-for="genre in genres.slice(0, 3)" v-bind:key="genre.name"
       >
@@ -18,8 +17,6 @@
     >
       <img class="heart-icon" v-bind:src="heartIcon" />
     </button>
-    <!-- {{movie}} -->
-    <!-- <img v-bind:src="require(this.image)" > -->
   </li>
 </template>
 

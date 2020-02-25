@@ -1,25 +1,7 @@
 <template>
   <li class="cast-list__item">
-    <!-- <table>
-      <tbody>
-        <tr>
-          <td class="photo">
-            
-          </td>
-          <td class="name">
-            
-          </td>
-          <td class="character">
-            
-          </td>
-        </tr>
-      </tbody>
-    </table> -->
     <img class="cast-list__member-photo" v-bind:src="image" />
     <p class="cast-list__member-name">{{ castMember.name }}</p>
-    <!-- <p class="cast-list__member-character">
-              {{ castMember.character }}
-            </p> -->
   </li>
 </template>
 
@@ -42,7 +24,6 @@
     },
     computed: {
       image() {
-        // let config = JSON.parse(localStorage.getItem("config"));
         let config = this.getConfig();
         return (
           config.secure_base_url +
@@ -55,18 +36,11 @@
 </script>
 
 <style>
-  /* .cast-list__member-photo {
-  display: none;
-} */
 .cast-list__member-photo {
       display: inline-block;
       width: 100px;
       height: 100px;
     }
-  .photo {
-    /* width: 100px; */
-    /* height: 100px; */
-  }
 
   .cast-list__member-name,
   .cast-list__member-character {

@@ -1,6 +1,5 @@
 <template>
   <section class="cast-info">
-    <!-- {{crew}} -->
     <ul class="cast-list">
       <CastMember
         v-for="castMember in cast.slice(0, 5)"
@@ -12,7 +11,7 @@
 </template>
 
 <script>
-import CastMember from "@/components/CastMember";
+const CastMember = () => import("@/components/CastMember");
 
 export default {
   props: ["cast"],

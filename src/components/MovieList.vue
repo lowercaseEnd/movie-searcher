@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import MovieItem from "@/components/MovieItem";
+  const MovieItem = () => import("@/components/MovieItem");
 
   export default {
     props: ["movies"],

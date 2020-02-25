@@ -1,4 +1,3 @@
-// const API_KEY = "60e1831dec35a216fdaff508cdf5675c";
 //module for getting information about cast
 export default {
   state: {

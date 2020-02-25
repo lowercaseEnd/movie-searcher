@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import SimilarMovie from "@/components/SimilarMovie";
+  const SimilarMovie = () => import("@/components/SimilarMovie");
 
   export default {
     props: ["moviesList"],

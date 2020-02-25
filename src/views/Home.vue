@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <!-- <Search /> -->
     <div v-if="this.$route.name === 'home'">
       <MovieList v-bind:movies="getMovies" />
       <Pages />
@@ -12,15 +11,15 @@
 
 <script>
   import { mapGetters, mapActions } from "vuex";
-  import MovieList from "@/components/MovieList";
-  import Search from "@/components/Search";
-  import Pages from "@/components/Pages";
+  // import MovieList from "@/components/MovieList";
+  // import Pages from "@/components/Pages";
+  const MovieList = () => import("@/components/MovieList");
+  const Pages = () => import("@/components/Pages");
 
   export default {
     name: "home",
     components: {
       MovieList,
-      Search,
       Pages
     },
     methods: mapActions(["fetchMovieList"]),
@@ -31,8 +30,13 @@
         return favs;
       }
     },
-    mounted() {
-      this.fetchMovieList();
+    // mounted() {
+    //   },
+    beforeRouteEnter (to, from, next) {
+      // this.fetchMovieList();
+      next(vm => {
+        vm.fetchMovieList();
+      })
     }
   };
 </script>

@@ -16,10 +16,10 @@
 
 <script>
   import { mapActions } from "vuex";
-  import Search from "@/components/Search";
-  import Loader from "@/components/Loader";
-  import Burger from "@/components/menu/Burger";
-  import Sidebar from "@/components/menu/Sidebar";
+  const Search = () => import("@/components/Search");
+  const Loader = () => import("@/components/Loader");
+  const Burger = () => import("@/components/menu/Burger");
+  const Sidebar = () => import("@/components/menu/Sidebar");
 
   export default {
     data() {
