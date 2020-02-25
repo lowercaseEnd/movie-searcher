@@ -106,6 +106,13 @@
           parsed[this.movie.id] = this.movie;
         }
         localStorage.setItem("favourites", JSON.stringify(parsed));
+      },
+      checkNumber(string) {
+        let num = +string;
+        if (isNaN(num) && isNaN(parseInt(num))) {
+          return false;
+        }
+        return true;
       }
     },
     async mounted() {
@@ -164,23 +171,29 @@
     watch: {
       $route(to, from) {
         this.$store.commit("changeLoadingState", true);
-        this.fetchMovieInfo(this.$route.params.id);
-        this.fetchCast(this.$route.params.id);
-        this.fetchSimilarMovies({
-          id: this.$route.params.id,
-          key: "similar"
-        });
-        this.fetchSimilarMovies({
-          id: this.$route.params.id,
-          key: "recommendations"
-        });
-        //this code will check if movie is in favourites on $route change
-        let local = localStorage.getItem("favourites");
-        let parsed = JSON.parse(local) || {};
-        if (parsed[this.$route.params.id]) {
-          this.heartIcon = require("../assets/heart-icon-filled.svg");
+        if (!this.checkNumber(this.$route.params.id)) {
+          this.$router.push({
+            name: "not found"
+          });
         } else {
-          this.heartIcon = require("../assets/heart-icon-empty.svg");
+          this.fetchMovieInfo(this.$route.params.id);
+          this.fetchCast(this.$route.params.id);
+          this.fetchSimilarMovies({
+            id: this.$route.params.id,
+            key: "similar"
+          });
+          this.fetchSimilarMovies({
+            id: this.$route.params.id,
+            key: "recommendations"
+          });
+          //this code will check if movie is in favourites on $route change
+          let local = localStorage.getItem("favourites");
+          let parsed = JSON.parse(local) || {};
+          if (parsed[this.$route.params.id]) {
+            this.heartIcon = require("../assets/heart-icon-filled.svg");
+          } else {
+            this.heartIcon = require("../assets/heart-icon-empty.svg");
+          }
         }
         this.$store.commit("changeLoadingState", false);
       }

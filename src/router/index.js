@@ -1,8 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/views/Home";
-import Movie from "@/views/Movie";
-import NotFound from "@/components/NotFound";
+// import Movie from "@/views/Movie";
+const Movie = () => import("@/views/Movie");
+// import NotFound from "@/components/NotFound";
+const NotFound = () => import("@/components/NotFound");
 
 Vue.use(VueRouter);
 
@@ -24,6 +26,7 @@ const routes = [
   },
   {
     path: "*",
+    name: "not found",
     component: NotFound
   }
 ];

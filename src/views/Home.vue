@@ -33,13 +33,9 @@
     },
     mounted() {
       this.fetchMovieList();
-      // let favs =
     }
   };
 </script>
 
 <style>
-  .home {
-    /* background-color: #e3e7f1; */
-  }
 </style>
