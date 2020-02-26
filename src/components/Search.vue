@@ -1,6 +1,7 @@
 <template>
   <form v-on:submit.prevent="">
-    <input class="movie-search" v-on:keyup.enter="search" type="text" v-model.trim="input" placeholder="Search">
+    <input id="search" class="movie-search" v-on:keyup.enter="search" type="text" v-model.trim="input" placeholder="Search">
+    <label for="search" class="visually-hidden"></label>
   </form>
 </template>
 
@@ -39,20 +40,12 @@ export default {
     border: none;
     margin-bottom: 20px;
   }
-  /* @media (min-width: 635px) {
-    .movie-search {
-      width: 396px;
-    }
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    clip: rect(1px, 1px, 1px, 1px);
   }
-  @media (min-width: 831px) {
-    .movie-search {
-      width: 462px;
-      margin-bottom: 0;
-    }
-  }
-  @media (min-width: 1230px) {
-    .movie-search {
-      width: 862px;
-    } */
-  /* } */
 </style>

@@ -114,19 +114,7 @@
         return true;
       }
     },
-    async mounted() {
-      await this.fetchMovieInfo(this.$route.params.id);
-      await this.fetchCast(this.$route.params.id);
-      if (this.movie.status === "Released") {
-        await this.fetchSimilarMovies({
-          id: this.$route.params.id,
-          key: "similar"
-        });
-        await this.fetchSimilarMovies({
-          id: this.$route.params.id,
-          key: "recommendations"
-        });
-      }
+    mounted() {
       let local = localStorage.getItem("favourites");
       let parsed = JSON.parse(local) || {};
       if (parsed[this.$route.params.id]) {
@@ -134,6 +122,22 @@
       } else {
         this.heartIcon = require("../assets/heart-icon-empty.svg");
       }
+    },
+    beforeRouteEnter(to, from, next) {
+      next(async vm => {
+        await vm.fetchMovieInfo(vm.$route.params.id);
+        await vm.fetchCast(vm.$route.params.id);
+        if (vm.movie.status === "Released") {
+          await vm.fetchSimilarMovies({
+            id: vm.$route.params.id,
+            key: "similar"
+          });
+          await vm.fetchSimilarMovies({
+            id: vm.$route.params.id,
+            key: "recommendations"
+          });
+        }
+      });
     },
     computed: {
       releaseDate() {

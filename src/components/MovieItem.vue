@@ -1,6 +1,6 @@
 <template>
   <li class="movie-list__item" >
-    <img v-on:click="openPage" class="movie-list__poster" v-lazy="image" />
+    <img v-on:click="openPage" class="movie-list__poster" v-lazy="image" alt="Movie poster"/>
     <p v-on:click="openPage">Release date: {{ this.date.getFullYear() }}</p>
     <p v-if="this.$route.name === 'home'">
       <span v-for="genre in genres.slice(0, 3)" v-bind:key="genre.name"
@@ -14,6 +14,7 @@
       class="movie-item__favourites"
       title="Add to favourites"
       v-on:click="toggleFavourites"
+      aria-label="Add movie to favourites"
     >
       <img class="heart-icon" v-lazy="heartIcon" />
     </button>
@@ -116,7 +117,7 @@
   }
   .movie-list__poster {
     width: 100%;
-    height: 400px;
+    height: fit-content;
   }
   .movie-item__favourites {
     position: absolute;
